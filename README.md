@@ -1,14 +1,16 @@
-## Virtual Assistant Chat Widget
+# Virtual Assistant Chat Widget
 
+![Chat Widget Preview](https://res.cloudinary.com/dzpafdvkm/image/upload/v1725829845/Portfolio/virtual-assistant-chat-widget.png)
 
 ## Project Overview
 This project is a virtual assistant chat widget designed to help users with general inquiries and provide information when the assistant is not available.
 
-Technologies Used
-JavaScript: For scripting and interactivity within the chat widget.
-HTML: Used to structure the widget's content and layout.
-CSS: For styling the chat widget and ensuring it is responsive and visually appealing.
-Setup Instructions
+## Technologies Used
+- ![JavaScript Logo](https://res.cloudinary.com/dzpafdvkm/image/upload/v1718575080/Portfolio/logos/javascript-logo.png) **JavaScript**: For scripting and interactivity within the chat widget.
+- ![HTML Logo](https://res.cloudinary.com/dzpafdvkm/image/upload/v1718565505/Portfolio/logos/html-logo.png) **HTML**: Used to structure the widget's content and layout.
+- ![CSS Logo](https://res.cloudinary.com/dzpafdvkm/image/upload/v1725831215/Portfolio/logos/css-logo.svg) **CSS**: For styling the chat widget and ensuring it is responsive and visually appealing.
+
+## Setup Instructions
 Follow these steps to set up and run the project locally:
 
 Clone the repository:
