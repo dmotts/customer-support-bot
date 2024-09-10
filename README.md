@@ -7,28 +7,15 @@ This project is designed to help users with general inquiries and provide inform
 
 ## Technologies Used
 <p>
+<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1718565505/Portfolio/logos/html-logo.png" alt="HTML Logo" width="100"/>
 
+<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1718575080/Portfolio/logos/javascript-logo.png" alt="Javascript Logo" width="100"/>
+
+<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1725831215/Portfolio/logos/css-logo.png" alt="CSS Logo" width="100"/>
 </p>
 
 ## Setup Instructions
-Follow these steps to set up and run the project locally:
 
-Clone the repository:
-bash
-Copy code
-git clone https://github.com/dmotts/customer-support-bot.git
-Navigate to the project directory:
-bash
-Copy code
-cd virtual-assistant-chat-widget
-Install the dependencies (if applicable):
-bash
-Copy code
-npm install
-Run the project:
-```
-npm start
-```
 
 ## Contributions
 It only takes five (5) steps!
