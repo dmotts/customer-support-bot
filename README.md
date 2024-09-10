@@ -16,7 +16,7 @@ Follow these steps to set up and run the project locally:
 Clone the repository:
 bash
 Copy code
-git clone https://github.com/dmotts/virtual-assistant-chat-widget.git
+git clone https://github.com/dmotts/customer-support-bot.git
 Navigate to the project directory:
 bash
 Copy code
