@@ -1,10 +1,14 @@
 <?php
-/*
-Plugin Name: Customer Support Bot
-Description: Customer Support Bot is designed to help users when the assistant is not available.
-Version: 0.0.1
-Author: Admin
-*/
+/**
+ * Plugin Name: Customer Support Bot
+ * Description: Customer Support Bot WordPress plugin is designed to help users with general inquiries and provide information when the assistant is not available.
+ * Version:     0.0.1
+ * Author:      Admin
+ * License:     GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain: customer-support-bot
+ * Domain Path: /languages
+ */
 
 // Enqueue scripts and styles
 function vacw_enqueue_scripts() {
