@@ -1,5 +1,7 @@
 "use strict";
 
+alert("Javascript connected.");
+
 // Load environment variables
 require('dotenv').config();
 
