@@ -5,6 +5,14 @@
 ## Project Overview
 This Customer Support Bot WordPress plugin is designed to help users with general inquiries and provide information when the assistant is not available.
 
+## Technologies Used
+<p 
+   style="
+       display: flex;   
+   ">
+   <img />
+</p>
+
 ## Setup Instructions
 ### 1. Download the Plugin
 1. Clone or download the latest version of this plugin from the GitHub repository:
