@@ -2,8 +2,10 @@
 
 ![Customer Support Bot Preview](https://res.cloudinary.com/dzpafdvkm/image/upload/v1725829845/Portfolio/virtual-assistant-chat-widget.png)
 
+
 ## Project Overview
 Customer Support Bot WordPress plugin is designed to help users with general inquiries and provide information when the assistant is not available.
+
 
 ## Technologies Used
 <p 
@@ -15,6 +17,7 @@ Customer Support Bot WordPress plugin is designed to help users with general inq
    <img src="" alt="JavaScript" width="100"/>
    <img src="" alt="CSS" width="100"/>
 </p>
+
 
 ## Setup Instructions
 ### 1. Download the Plugin
@@ -36,6 +39,7 @@ Alternatively, you can download the ZIP file from the Releases section.
 1) After installation, navigate to `Plugins > Installed Plugins`.
 2) Find `Customer Support Bot` in the list.
 3) Click `Activate`.
+
 
 ## Contributions
 To contribute:
