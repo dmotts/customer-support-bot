@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Virtual Assistant Chat Widget
-Description: A virtual assistant chat widget for WordPress.
+Plugin Name: Customer Support Bot
+Description: A customer support bot for WordPress.
 Version: 0.0.1
 Author: Admin
 */
