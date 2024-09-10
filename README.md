@@ -20,7 +20,7 @@ Customer Support Bot WordPress plugin is designed to help users with general inq
 ### 1. Download the Plugin
 1. Clone or download the latest version of this plugin from the GitHub repository:
 
-```
+```bash
 git clone https://github.com/dmotts/customer-support-bot.git
 ```
 Alternatively, you can download the ZIP file from the Releases section.
@@ -42,17 +42,20 @@ To contribute:
 
 1) Fork the repository.
 
-2) Create a new branch: 
-```
+2) Create a new branch:
+
+```bash
 git checkout -b my-feature-branch
 ```
 
-3) Make your changes and commit them: 
-```
+3) Make your changes and commit them:
+
+```bash
 git commit -m 'Add some feature'
 ```
-4) Push to the branch: 
-```
+4) Push to the branch:
+
+```bash
 git push origin my-feature-branch
 ```
 
