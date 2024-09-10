@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Customer Support Bot
-Description: A customer support bot for WordPress.
+Description: Customer Support Bot is designed to help users when the assistant is not available.
 Version: 0.0.1
 Author: Admin
 */
