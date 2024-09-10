@@ -20,9 +20,9 @@ Customer Support Bot WordPress plugin is designed to help users with general inq
 ### 1. Download the Plugin
 1. Clone or download the latest version of this plugin from the GitHub repository:
 
-   ```
-   git clone https://github.com/dmotts/customer-support-bot.git
-   ```
+```
+git clone https://github.com/dmotts/customer-support-bot.git
+```
 Alternatively, you can download the ZIP file from the Releases section.
 
 ### 2. Upload to WordPress
