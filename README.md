@@ -11,7 +11,7 @@ This project is designed to help users with general inquiries and provide inform
 
 <img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1718575080/Portfolio/logos/javascript-logo.png" alt="Javascript Logo" width="100"/>
 
-<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1725831215/Portfolio/logos/css-logo.svg" alt="CSS Logo" width="100"/>
+<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1725831215/Portfolio/logos/css-logo.png" alt="CSS Logo" width="100"/>
 </p>
 
 ## Setup Instructions
