@@ -21,7 +21,7 @@ Alternatively, you can download the ZIP file from the Releases section.
 
 ### 3. Activate the Plugin
 1) After installation, navigate to `Plugins > Installed Plugins`.
-2) Find `[Your Plugin Name]` in the list.
+2) Find `Customer Support Bot` in the list.
 3) Click `Activate`.
 
 ## Contributions
