@@ -12,18 +12,17 @@ This Customer Support Bot WordPress plugin is designed to help users with genera
    git clone https://github.com/dmotts/customer-support-bot.git
 Alternatively, you can download the ZIP file from the Releases section.
 
-2. Upload to WordPress
+### 2. Upload to WordPress
+1) Log in to your WordPress dashboard.
+2) Navigate to `Plugins > Add New`.
+3) Click on the `Upload Plugin` button at the top of the page.
+4) Choose the plugin `.zip` file (if downloaded) or upload the plugin folder manually.
+5) Click `Install` Now.
 
-3. 
-Log in to your WordPress dashboard.
-Navigate to Plugins > Add New.
-Click on the Upload Plugin button at the top of the page.
-Choose the plugin .zip file (if downloaded) or upload the plugin folder manually.
-Click Install Now.
-4. Activate the Plugin
-After installation, navigate to Plugins > Installed Plugins.
-Find [Your Plugin Name] in the list.
-Click `Activate`.
+### 3. Activate the Plugin
+1) After installation, navigate to `Plugins > Installed Plugins`.
+2) Find `[Your Plugin Name]` in the list.
+3) Click `Activate`.
 
 ## Contributions
 To contribute:
