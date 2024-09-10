@@ -6,7 +6,7 @@
 This project is designed to help users with general inquiries and provide information when the assistant is not available.
 
 ## Technologies Used
-- <img src="[drawing.jpg](https://res.cloudinary.com/dzpafdvkm/image/upload/v1718575080/Portfolio/logos/javascript-logo.png)" alt="Javascript Logo" width="200"/>) **JavaScript**: For scripting and interactivity within the chat widget.
+- <img src="https://res.cloudinary.com/dzpafdvkm/image/upload/v1718575080/Portfolio/logos/javascript-logo.png" alt="Javascript Logo" width="200"/>) **JavaScript**: For scripting and interactivity within the chat widget.
 - ![HTML Logo](https://res.cloudinary.com/dzpafdvkm/image/upload/v1718565505/Portfolio/logos/html-logo.png) **HTML**: Used to structure the widget's content and layout.
 - ![CSS Logo](https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_50/v1725831215/Portfolio/logos/css-logo.svg) **CSS**: For styling the chat widget and ensuring it is responsive and visually appealing.
 
