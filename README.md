@@ -40,4 +40,4 @@ git push origin my-feature-branch
 
 5) Open a pull request.
 
-<i>Please ensure your code follows the project's coding standards and includes tests where appropriate.</i>
+<strong>Please ensure your code follows the project's coding standards and includes tests where appropriate.</strong>
