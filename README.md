@@ -7,11 +7,11 @@ This project is designed to help users with general inquiries and provide inform
 
 ## Technologies Used
 <p>
-<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/v1718565505/Portfolio/logos/html-logo.png" alt="HTML Logo" width="140"/>
+<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/v1718565505/Portfolio/logos/html-logo.png" alt="HTML Logo" width="100"/>
 
-<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/v1718575080/Portfolio/logos/javascript-logo.png" alt="Javascript Logo" width="140"/>
+<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/v1718575080/Portfolio/logos/javascript-logo.png" alt="Javascript Logo" width="100"/>
 
-<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/v1718575080/Portfolio/logos/javascript-logo.png" alt="CSS Logo" width="140"/>
+<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_177/v1725831215/Portfolio/logos/css-logo.svg" alt="CSS Logo" width="100"/>
 </p>
 
 ## Setup Instructions
