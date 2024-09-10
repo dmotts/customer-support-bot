@@ -26,8 +26,6 @@ Find [Your Plugin Name] in the list.
 Click `Activate`.
 
 ## Contributions
-It only takes five (5) steps!
-
 To contribute:
 
 1) Fork the repository.
