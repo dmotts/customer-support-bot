@@ -2,7 +2,7 @@
 /*
 Plugin Name: Virtual Assistant Chat Widget
 Description: A virtual assistant chat widget for WordPress.
-Version: 1.0.1
+Version: 0.0.1
 Author: Your Name
 */
 
