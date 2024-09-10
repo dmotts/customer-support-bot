@@ -22,21 +22,22 @@ It only takes five (5) steps!
 
 To contribute:
 
-Fork the repository.
-1) Create a new branch: 
+1) Fork the repository.
+
+2) Create a new branch: 
 ```
-git checkout -b my-feature-branch.
+git checkout -b my-feature-branch
 ```
 
-2) Make your changes and commit them: 
+3) Make your changes and commit them: 
 ```
-git commit -m 'Add some feature'.
+git commit -m 'Add some feature'
 ```
-3) Push to the branch: 
+4) Push to the branch: 
 ```
-git push origin my-feature-branch.
+git push origin my-feature-branch
 ```
 
-4) Open a pull request.
+5) Open a pull request.
 
-Please ensure your code follows the project's coding standards and includes tests where appropriate.
+<i>Please ensure your code follows the project's coding standards and includes tests where appropriate.</i>
