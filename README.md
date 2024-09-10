@@ -10,7 +10,9 @@ This Customer Support Bot WordPress plugin is designed to help users with genera
    style="
        display: flex;   
    ">
-   <img />
+   <img src="logo" alt="HTML logo" width="100"/>
+   <img src="logo" alt="JavaScript logo" width="100"/>
+   <img src="logo" alt="CSS logo" width="100"/>
 </p>
 
 ## Setup Instructions
