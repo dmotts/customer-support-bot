@@ -1,5 +1,5 @@
 <div class="wrap">
-    <h1>Chat Widget Settings</h1>
+    <h1>Customer Support Bot Settings</h1>
     <form method="post" action="options.php">
         <?php settings_fields('vacw_settings_group'); ?>
         <?php do_settings_sections('vacw_settings_group'); ?>
