@@ -1,17 +1,13 @@
 # Customer Support Bot (Wordpress Plugin)
 
-![Chat Widget Preview](https://res.cloudinary.com/dzpafdvkm/image/upload/v1725829845/Portfolio/virtual-assistant-chat-widget.png)
+![Customer Support Bot Preview](https://res.cloudinary.com/dzpafdvkm/image/upload/v1725829845/Portfolio/virtual-assistant-chat-widget.png)
 
 ## Project Overview
 This project is designed to help users with general inquiries and provide information when the assistant is not available.
 
 ## Technologies Used
 <p>
-<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1718565505/Portfolio/logos/html-logo.png" alt="HTML Logo" width="100"/>
 
-<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1718575080/Portfolio/logos/javascript-logo.png" alt="Javascript Logo" width="100"/>
-
-<img src="https://res.cloudinary.com/dzpafdvkm/image/upload/c_scale,w_100/v1725831215/Portfolio/logos/css-logo.png" alt="CSS Logo" width="100"/>
 </p>
 
 ## Setup Instructions
