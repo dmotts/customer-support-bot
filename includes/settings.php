@@ -10,7 +10,15 @@
             </tr>
             <tr valign="top">
                 <th scope="row">Virtual Assistant Name</th>
-                <td><input type="text" name="vacw_assistant_name" value="<?php echo esc_attr(get_option('vacw_assistant_name', 'Harry')); ?>" /></td>
+                <td><input type="text" name="vacw_assistant_name" value="<?php echo esc_attr(get_option('vacw_assistant_name', 'Support Bot')); ?>" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">GPT-4o API Key</th>
+                <td><input type="text" name="vacw_openai_api_key" value="<?php echo esc_attr(get_option('vacw_openai_api_key')); ?>" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Supported Languages</th>
+                <td><input type="text" name="vacw_supported_languages" value="<?php echo esc_attr(get_option('vacw_supported_languages', 'en,es,fr')); ?>" /></td>
             </tr>
         </table>
         <?php submit_button(); ?>
