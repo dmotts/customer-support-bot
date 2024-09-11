@@ -1,44 +1,58 @@
 "use strict";
 
-// Event listener for message submission
-document.querySelector('.chatbot__submit').addEventListener('click', async () => {
-    const userMessage = document.querySelector('.chatbot__input').value;
+// Access the OpenAI API key from PHP (passed via wp_localize_script)
+const openaiApiKey = vacw_settings.openai_api_key;
 
-    // Display the user's message in the chat window
-    displayMessage(userMessage, 'user');
+if (!openaiApiKey) {
+  console.error("OpenAI API key is not available. Please configure it in the plugin settings.");
+}
 
-    // Call GPT-4o API
-    const response = await getGPT4oResponse(userMessage);
+// Function to call OpenAI API
+async function callOpenAI(prompt) {
+  if (!openaiApiKey) return;
 
-    // Display the AI's response
-    displayMessage(response, 'ai');
+  const response = await fetch('https://api.openai.com/v1/engines/gpt-4/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${openaiApiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      prompt: prompt,
+      max_tokens: 150
+    })
+  });
+
+  const data = await response.json();
+  return data;
+}
+
+// Get DOM elements
+const $chatbotSubmit = document.querySelector('.chat-submit');
+const $chatbotInput = document.querySelector('.chat-input');
+const $chatbotBody = document.querySelector('.chat-body');
+
+// Example use of the API
+$chatbotSubmit.addEventListener('click', async () => {
+  const userMessage = $chatbotInput.value;
+
+  if (userMessage) {
+    // Add user message to chat
+    const userMessageElement = document.createElement('div');
+    userMessageElement.classList.add('chat-message', 'user-message');
+    userMessageElement.textContent = userMessage;
+    $chatbotBody.appendChild(userMessageElement);
+
+    // Call OpenAI API and get the response
+    const aiResponse = await callOpenAI(userMessage);
+    
+    // Add AI response to chat
+    const aiMessageElement = document.createElement('div');
+    aiMessageElement.classList.add('chat-message', 'ai-message');
+    aiMessageElement.textContent = aiResponse.choices[0].text;
+    $chatbotBody.appendChild(aiMessageElement);
+
+    // Scroll to the bottom of the chat
+    $chatbotBody.scrollTop = $chatbotBody.scrollHeight;
+  }
 });
-
-async function getGPT4oResponse(message) {
-    const apiKey = "YOUR_API_KEY"; // Replace with dynamic fetching from PHP
-
-    const response = await fetch('https://api.openai.com/v1/completions', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            model: 'gpt-4',
-            prompt: message,
-            max_tokens: 150,
-            temperature: 0.7
-        })
-    });
-
-    const data = await response.json();
-    return data.choices[0].text.trim();
-}
-
-// Function to display message
-function displayMessage(message, sender) {
-    const messageElement = document.createElement('li');
-    messageElement.classList.add(sender === 'ai' ? 'is-ai' : 'is-user');
-    messageElement.innerHTML = `<p class='chatbot__message'>${message}</p>`;
-    document.querySelector('.chatbot__messages').appendChild(messageElement);
-}
