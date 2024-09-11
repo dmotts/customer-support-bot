@@ -1,13 +1,9 @@
 <?php
 /**
  * Plugin Name: Customer Support Bot
- * Description: Customer Support Bot WordPress plugin is designed to help users with general inquiries and provide information when the assistant is not available.
- * Version:     0.0.1
+ * Description: Customer Support Bot for handling customer inquiries with GPT-4o integration.
+ * Version:     0.0.2
  * Author:      Admin
- * License:     GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: customer-support-bot
- * Domain Path: /languages
  */
 
 // Enqueue scripts and styles
@@ -27,10 +23,11 @@ add_action('wp_footer', 'vacw_add_chat_widget');
 function vacw_settings_page() {
     include(plugin_dir_path(__FILE__) . 'includes/settings.php');
 }
+add_action('admin_menu', 'vacw_register_settings_page');
 
 // Register settings page
 function vacw_register_settings_page() {
-    add_options_page('Chat Widget Settings', 'Chat Widget', 'manage_options', 'vacw-settings', 'vacw_settings_page');
+    add_options_page('Customer Support Bot Settings', 'Chat Widget', 'manage_options', 'vacw-settings', 'vacw_settings_page');
 }
 add_action('admin_menu', 'vacw_register_settings_page');
 
@@ -38,5 +35,42 @@ add_action('admin_menu', 'vacw_register_settings_page');
 function vacw_register_settings() {
     register_setting('vacw_settings_group', 'vacw_avatar_url');
     register_setting('vacw_settings_group', 'vacw_assistant_name');
+    // Additional settings for GPT-4o API key and functionality.
+    register_setting('vacw_settings_group', 'vacw_openai_api_key');
+    register_setting('vacw_settings_group', 'vacw_supported_languages');
 }
 add_action('admin_init', 'vacw_register_settings');
+
+// Function to handle GPT-4o API
+function vacw_gpt4_response($message) {
+    $api_key = get_option('vacw_openai_api_key');
+    if (!$api_key) {
+        return "API key missing. Please configure the settings.";
+    }
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.openai.com/v1/completions",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: Bearer $api_key",
+            "Content-Type: application/json",
+        ),
+        CURLOPT_POSTFIELDS => json_encode(array(
+            "model" => "gpt-4",
+            "prompt" => $message,
+            "max_tokens" => 150,
+            "temperature" => 0.7,
+        )),
+    ));
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $response_data = json_decode($response, true);
+
+    if (isset($response_data['choices'][0]['text'])) {
+        return $response_data['choices'][0]['text'];
+    } else {
+        return "I'm sorry, I'm unable to assist right now.";
+    }
+}
