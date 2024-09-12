@@ -2,34 +2,39 @@
 /*
 Plugin Name: Customer Support Bot
 Description: Customer Support Bot is designed to help users when the assistant is not available.
-Version: 0.1.2
+Version: 0.1.4
 Author: Admin
 */
 
 // Enqueue scripts and styles
 function vacw_enqueue_scripts() {
-    wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__));
-    wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), null, true);
+    // Disable caching for development by appending a timestamp
+    $timestamp = time(); // Current timestamp
+
+    wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp); // Append timestamp to prevent caching
+
+    wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true); // Append timestamp to prevent caching
+
     wp_localize_script('vacw-script', 'vacw_settings', array(
-        'ajax_url' => admin_url('admin-ajax.php'), // Correct JavaScript variable name
+        'ajax_url' => admin_url('admin-ajax.php'),
     ));
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
 
 // Add chat widget to the footer
 function vacw_add_chat_widget() {
-    echo '<div id="chatbot-container" style="display:none;">';
+    echo '<div id="chatbot-container">';
     include(plugin_dir_path(__FILE__) . 'assets/index.html');
     echo '</div>';
 }
 add_action('wp_footer', 'vacw_add_chat_widget');
 
-// Add settings page
+// Register settings page
 function vacw_settings_page() {
     include(plugin_dir_path(__FILE__) . 'includes/settings.php');
 }
 
-// Register settings page
+// Register settings page in admin menu
 function vacw_register_settings_page() {
     add_options_page('Chat Widget Settings', 'Chat Widget', 'manage_options', 'vacw-settings', 'vacw_settings_page');
 }
@@ -39,7 +44,7 @@ add_action('admin_menu', 'vacw_register_settings_page');
 function vacw_register_settings() {
     register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
-    register_setting('vacw_settings_group', 'vacw_openai_api_key', 'sanitize_text_field'); // Register OpenAI API Key setting
+    register_setting('vacw_settings_group', 'vacw_openai_api_key', 'sanitize_text_field');
 }
 add_action('admin_init', 'vacw_register_settings');
 
@@ -51,7 +56,7 @@ function vacw_api_proxy() {
     }
 
     $api_url = 'https://api.openai.com/v1/chat/completions';
-    $openai_api_key = get_option('vacw_openai_api_key'); // Retrieve OpenAI API key from settings
+    $openai_api_key = get_option('vacw_openai_api_key');
 
     $args = array(
         'headers' => array(
