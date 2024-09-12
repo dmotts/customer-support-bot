@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Customer Support Bot
  * Description: Customer Support Bot for handling customer inquiries with GPT-4o integration.
- * Version:     0.0.2
+ * Version:     0.0.3
  * Author:      Admin
 **/
 
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define constants
-define('CUSTOMER_SUPPORT_BOT_VERSION', '0.0.2');
+define('CUSTOMER_SUPPORT_BOT_VERSION', '0.0.3');
 
 // Enqueue plugin assets
 function vacw_enqueue_assets() {
