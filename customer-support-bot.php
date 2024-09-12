@@ -10,7 +10,9 @@ Author: Admin
 function vacw_enqueue_scripts() {
     wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__));
     wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), null, true);
-    wp_localize_script('vacw-script', 'vacw_ajax', array('ajax_url' => admin_url('admin-ajax.php')));
+    wp_localize_script('vacw-script', 'vacw_settings', array(
+        'ajax_url' => admin_url('admin-ajax.php'), // Correct JavaScript variable name
+    ));
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
 
