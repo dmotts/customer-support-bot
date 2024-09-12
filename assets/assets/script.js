@@ -1,14 +1,13 @@
 "use strict";
 
-// Load environment variables
-require('dotenv').config();
-
-const accessToken = process.env.ACCESS_TOKEN;
-const baseUrl = 'https://api.api.ai/api/query?v=2015091001';
+// The base URL for AJAX requests to the WordPress backend
+const baseUrl = vacw_ajax.ajax_url + '?action=vacw_api_proxy';
 const sessionId = '20150910';
 const loader = "<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>";
 const errorMessage = 'My apologies, I\'m not available at the moment, however, feel free to call our support team directly at 0123456789.';
 const urlPattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+
+// DOM elements
 const $document = document;
 const $chatbot = $document.querySelector('.chatbot');
 const $chatbotMessageWindow = $document.querySelector('.chatbot__message-window');
@@ -16,44 +15,80 @@ const $chatbotHeader = $document.querySelector('.chatbot__header');
 const $chatbotMessages = $document.querySelector('.chatbot__messages');
 const $chatbotInput = $document.querySelector('.chatbot__input');
 const $chatbotSubmit = $document.querySelector('.chatbot__submit');
-const botLoadingDelay = 1000;
-const botReplyDelay = 2000;
 
-document.addEventListener('keypress', (event) => {
-  if (event.which == 13) validateMessage();
-}, false);
+// Event listeners with debounce to avoid multiple API calls
+document.addEventListener('keypress', debounce((event) => {
+  if (event.which === 13) validateMessage(); // Enter key
+}, 300), false);
 
 $chatbotHeader.addEventListener('click', () => {
   toggle($chatbot, 'chatbot--closed');
   $chatbotInput.focus();
 }, false);
 
-$chatbotSubmit.addEventListener('click', () => {
+$chatbotSubmit.addEventListener('click', debounce(() => {
   validateMessage();
-}, false);
+}, 300), false);
 
-const toggle = (element, klass) => {
-  const classes = element.className.match(/\S+/g) || [];
-  const index = classes.indexOf(klass);
-  index >= 0 ? classes.splice(index, 1) : classes.push(klass);
-  element.className = classes.join(' ');
+// Debounce function to limit the rate at which a function can fire
+function debounce(func, wait, immediate) {
+  let timeout;
+  return function() {
+    const context = this, args = arguments;
+    const later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+// Validate user input and prepare to send a message
+const validateMessage = () => {
+  const text = $chatbotInput.value.trim();
+  if (text) {
+    resetInputField();
+    userMessage(text);
+    sendMessageToAPI(text);
+  }
+  scrollDown();
 };
 
-const userMessage = (content) => {
-  $chatbotMessages.innerHTML += `<li class='is-user animation'>
-      <p class='chatbot__message'>
-        ${content}
-      </p>
-      <span class='chatbot__arrow chatbot__arrow--right'></span>
-    </li>`;
+// Send a message to the API via WordPress AJAX
+const sendMessageToAPI = async (text = '') => {
+  try {
+    const response = await fetch(baseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      },
+      body: new URLSearchParams({
+        query: text,
+        lang: 'en',
+        sessionId: sessionId
+      })
+    });
+    const result = await response.json();
+    
+    if (!result.success) throw new Error(result.data);
+    setResponse(result.data, botLoadingDelay + botReplyDelay);
+  } catch (error) {
+    setResponse(errorMessage, botLoadingDelay + botReplyDelay);
+    resetInputField();
+    console.error('Error communicating with API:', error);
+  }
+  aiMessage(loader, true, botLoadingDelay);
 };
 
+// Function to display a loading animation
 const aiMessage = (content, isLoading = false, delay = 0) => {
   setTimeout(() => {
     removeLoader();
-    $chatbotMessages.innerHTML += `<li 
-      class='is-ai animation' 
-      id='${isLoading ? "is-loading" : ""}'>
+    $chatbotMessages.innerHTML += `
+      <li class='is-ai animation' id='${isLoading ? "is-loading" : ""}'>
         <div class="is-ai__profile-picture">
           <svg class="icon-avatar" viewBox="0 0 32 32">
             <use xlink:href="#avatar" />
@@ -66,131 +101,49 @@ const aiMessage = (content, isLoading = false, delay = 0) => {
   }, delay);
 };
 
-const removeLoader = () => {
-  const loadingElem = document.getElementById('is-loading');
-  if (loadingElem) $chatbotMessages.removeChild(loadingElem);
+// Function to reset the input field after a message is sent
+const resetInputField = () => {
+  $chatbotInput.value = '';
 };
 
+// Function to scroll down the chat window to the latest message
+const scrollDown = () => {
+  const distanceToScroll = $chatbotMessageWindow.scrollHeight - ($chatbotMessages.lastChild.offsetHeight + 60);
+  $chatbotMessageWindow.scrollTop = distanceToScroll;
+};
+
+// Function to escape potentially unsafe characters from the input
 const escapeScript = (unsafe) => {
   const safeString = unsafe.replace(/</g, ' ').replace(/>/g, ' ').replace(/&/g, ' ').replace(/"/g, ' ').replace(/\\/, ' ').replace(/\s+/g, ' ');
   return safeString.trim();
 };
 
-const linkify = (inputText) => {
-  return inputText.replace(urlPattern, "<a href='$1' target='_blank'>$1</a>");
+// Function to toggle classes for showing/hiding elements
+const toggle = (element, klass) => {
+  const classes = element.className.match(/\S+/g) || [];
+  const index = classes.indexOf(klass);
+  index >= 0 ? classes.splice(index, 1) : classes.push(klass);
+  element.className = classes.join(' ');
 };
 
-const validateMessage = () => {
-  const text = $chatbotInput.value;
-  const safeText = text ? escapeScript(text) : '';
-  if (safeText.length && safeText !== ' ') {
-    resetInputField();
-    userMessage(safeText);
-    send(safeText);
-  }
-  scrollDown();
-  return;
+// Function to display a user message in the chat window
+const userMessage = (content) => {
+  $chatbotMessages.innerHTML += `
+    <li class='is-user animation'>
+      <p class='chatbot__message'>${escapeScript(content)}</p>
+      <span class='chatbot__arrow chatbot__arrow--right'></span>
+    </li>`;
 };
 
-const multiChoiceAnswer = (text) => {
-  const decodedText = text.replace(/zzz/g, "'");
-  userMessage(decodedText);
-  send(decodedText);
-  scrollDown();
-  return;
+// Function to remove the loading animation
+const removeLoader = () => {
+  const loadingElem = document.getElementById('is-loading');
+  if (loadingElem) $chatbotMessages.removeChild(loadingElem);
 };
 
-const processResponse = (val) => {
-  if (val && val.fulfillment) {
-    let output = '';
-    const messagesLength = val.fulfillment.messages.length;
-    for (let i = 0; i < messagesLength; i++) {
-      const message = val.fulfillment.messages[i];
-      const type = message.type;
-      switch (type) {
-        // 0 fulfillment is text
-        case 0:
-          const parsedText = linkify(message.speech);
-          output += `<p>${parsedText}</p>`;
-          break;
-
-        // 1 fulfillment is card
-        case 1:
-          const imageUrl = message.imageUrl;
-          const imageTitle = message.title;
-          const imageSubtitle = message.subtitle;
-          const button = message.buttons[0];
-          if (!imageUrl && !button && !imageTitle && !imageSubtitle) break;
-          output += `
-            <a class='card' href='${button.postback}' target='_blank'>
-              <img src='${imageUrl}' alt='${imageTitle}' />
-            <div class='card-content'>
-              <h4 class='card-title'>${imageTitle}</h4>
-              <p class='card-title'>${imageSubtitle}</p>
-              <span class='card-button'>${button.text}</span>
-            </div>
-            </a>
-          `;
-          break;
-
-        // 2 fulfillment is a quick reply with multi-choice buttons
-        case 2:
-          const title = message.title;
-          const replies = message.replies;
-          const repliesLength = replies.length;
-          output += `<p>${title}</p>`;
-          for (let i = 0; i < repliesLength; i++) {
-            const reply = replies[i];
-            const encodedText = reply.replace(/'/g, 'zzz');
-            output += `<button onclick='multiChoiceAnswer("${encodedText}")'>${reply}</button>`;
-          }
-          break;
-      }
-    }
-    removeLoader();
-    return output;
-  }
-  removeLoader();
-  return `<p>${errorMessage}</p>`;
-};
-
+// Function to set response from AI or show error
 const setResponse = (val, delay = 0) => {
   setTimeout(() => {
-    aiMessage(processResponse(val));
+    aiMessage(val);
   }, delay);
-};
-
-const resetInputField = () => {
-  $chatbotInput.value = '';
-};
-
-const scrollDown = () => {
-  const distanceToScroll = $chatbotMessageWindow.scrollHeight - ($chatbotMessages.lastChild.offsetHeight + 60);
-  $chatbotMessageWindow.scrollTop = distanceToScroll;
-  return false;
-};
-
-const send = (text = '') => {
-  fetch(`${baseUrl}&query=${text}&lang=en&sessionId=${sessionId}`, {
-    method: 'GET',
-    dataType: 'json',
-    headers: {
-      Authorization: 'Bearer ' + accessToken,
-      'Content-Type': 'application/json; charset=utf-8'
-    }
-  }).then(response => response.json())
-    .then(res => {
-      if (res.status < 200 || res.status >= 300) {
-        const error = new Error(res.statusText);
-        throw error;
-      }
-      return res;
-    }).then(res => {
-      setResponse(res.result, botLoadingDelay + botReplyDelay);
-    }).catch(error => {
-      setResponse(errorMessage, botLoadingDelay + botReplyDelay);
-      resetInputField();
-      console.log(error);
-    });
-  aiMessage(loader, true, botLoadingDelay);
 };
