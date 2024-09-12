@@ -23,22 +23,20 @@ function vacw_enqueue_assets() {
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_assets');
 
-function vacw_enqueue_scripts() {
-    wp_enqueue_script(
-        'vacw-script', 
-        plugins_url('/assets/assets/script.js', __FILE__), 
-        array('jquery'), 
-        '0.0.3', 
-        true
-    );
+// Enqueue plugin assets and localize script
+function vacw_enqueue_assets() {
+    wp_enqueue_style('customer-support-bot-style', plugin_dir_url(__FILE__) . 'assets/assets/style.css', array(), NULL);
+    
+    // Enqueue the script
+    wp_enqueue_script('customer-support-bot-script', plugin_dir_url(__FILE__) . 'assets/assets/script.js', array('jquery'), '0.0.3', true);
     
     // Localize the script with data
-    $api_key = 'YOUR_OPENAI_API_KEY'; // Replace this with your actual OpenAI API key
-    wp_localize_script('vacw-script', 'vacw_settings', array(
+    $api_key = get_option('vacw_openai_api_key'); // Get the API key from settings
+    wp_localize_script('customer-support-bot-script', 'vacw_settings', array(
         'openai_api_key' => $api_key,
     ));
 }
-add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'vacw_enqueue_assets');
 
 
 // Load API key securely
