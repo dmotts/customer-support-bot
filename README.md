@@ -4,7 +4,7 @@
 
 
 ## Project Overview
-Customer Support Bot WordPress plugin is designed to help users with general inquiries and provide information when the assistant is not available.
+Customer Support Bot is designed to help users when the assistant is not available.
 
 
 ## Technologies Used
