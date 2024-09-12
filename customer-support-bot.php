@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define constants
-define('CUSTOMER_SUPPORT_BOT_VERSION', '1.0');
+define('CUSTOMER_SUPPORT_BOT_VERSION', '0.0.1');
 
 // Include required files
 require_once plugin_dir_path(__FILE__) . 'includes/settings.php';
