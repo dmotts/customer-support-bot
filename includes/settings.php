@@ -52,3 +52,4 @@ function vacw_openai_api_key_callback() {
     <input type="text" name="vacw_openai_api_key" value="<?php echo esc_attr($api_key); ?>" class="regular-text">
     <?php
 }
+
