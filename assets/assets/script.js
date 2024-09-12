@@ -1,7 +1,7 @@
 "use strict";
 
-// The base URL for AJAX requests to the WordPress backend
-const baseUrl = vacw_ajax.ajax_url + '?action=vacw_api_proxy';
+// Use the AJAX URL provided by WordPress
+const baseUrl = vacw_settings.ajax_url + '?action=vacw_api_proxy';
 const sessionId = '20150910';
 const loader = "<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>";
 const errorMessage = 'My apologies, I\'m not available at the moment, however, feel free to call our support team directly at 0123456789.';
@@ -83,7 +83,7 @@ const sendMessageToAPI = async (text = '') => {
   aiMessage(loader, true, botLoadingDelay);
 };
 
-// Function to display a loading animation
+// Function to display AI response with a delay
 const aiMessage = (content, isLoading = false, delay = 0) => {
   setTimeout(() => {
     removeLoader();
