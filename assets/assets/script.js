@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const loader = "<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>";
   const errorMessage = 'My apologies, I\'m not available at the moment, however, feel free to call our support team directly at 0123456789.';
   const urlPattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+  
+  // Define bot message timing variables
+  const botLoadingDelay = 1000; // Delay before showing loading animation (in milliseconds)
+  const botReplyDelay = 2000; // Delay before showing bot's reply (in milliseconds)
 
   // DOM elements
   const $document = document;
