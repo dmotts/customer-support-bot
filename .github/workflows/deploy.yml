@@ -3,7 +3,7 @@ name: Deploy Plugin to Hosting
 on:
   push:
     branches:
-      - error-handling-fix
+      - upload-avatar-feature
 
 jobs:
   deploy:
