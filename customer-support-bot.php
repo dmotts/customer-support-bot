@@ -6,35 +6,58 @@ Version: 0.1.4
 Author: Admin
 */
 
-// Enqueue scripts and styles
+// Enqueue scripts and styles for the front end
 function vacw_enqueue_scripts() {
-    // Disable caching for development by appending a timestamp
     $timestamp = time(); // Current timestamp
 
-    wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp); // Append timestamp to prevent caching
-
-    wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true); // Append timestamp to prevent caching
+    wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp);
+    wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true);
 
     wp_localize_script('vacw-script', 'vacw_settings', array(
         'ajax_url' => admin_url('admin-ajax.php'),
+        'avatar_url' => esc_url(get_option('vacw_avatar_url', plugins_url('assets/default-avatar.png', __FILE__))), // Pass avatar URL to JavaScript
     ));
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
 
+// Enqueue scripts and styles for the admin settings page
+function vacw_enqueue_admin_scripts($hook) {
+    if ($hook !== 'settings_page_vacw-settings') {
+        return;
+    }
+
+    // Enqueue the WordPress media uploader
+    wp_enqueue_media();
+
+    // Enqueue custom script to handle media uploader
+    wp_enqueue_script('vacw-admin-script', plugins_url('assets/assets/admin-script.js', __FILE__), array('jquery'), null, true);
+}
+add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_scripts');
+
 // Add chat widget to the footer
 function vacw_add_chat_widget() {
-    echo '<div id="chatbot-container">';
-    include(plugin_dir_path(__FILE__) . 'assets/index.html');
-    echo '</div>';
+    try {
+        echo '<div id="chatbot-container">';
+        include(plugin_dir_path(__FILE__) . 'assets/index.html');
+        echo '</div>';
+    } catch (Exception $e) {
+        error_log('Error displaying chat widget: ' . $e->getMessage());
+        echo '<div>Error loading chat widget. Please contact the administrator.</div>';
+    }
 }
 add_action('wp_footer', 'vacw_add_chat_widget');
 
 // Register settings page
 function vacw_settings_page() {
-    include(plugin_dir_path(__FILE__) . 'includes/settings.php');
+    try {
+        include(plugin_dir_path(__FILE__) . 'includes/settings.php');
+    } catch (Exception $e) {
+        error_log('Error loading settings page: ' . $e->getMessage());
+        echo '<div>Error loading settings page. Please contact the administrator.</div>';
+    }
 }
 
-// Register settings page in admin menu
+// Register settings page in the admin menu
 function vacw_register_settings_page() {
     add_options_page('Chat Widget Settings', 'Chat Widget', 'manage_options', 'vacw-settings', 'vacw_settings_page');
 }
@@ -71,10 +94,18 @@ function vacw_api_proxy() {
     );
 
     $response = wp_remote_post($api_url, $args);
+
     if (is_wp_error($response)) {
-        wp_send_json_error('Error communicating with API');
+        error_log('Error communicating with API: ' . $response->get_error_message());
+        wp_send_json_error('Error communicating with the API.');
     } else {
-        wp_send_json_success(wp_remote_retrieve_body($response));
+        $response_body = wp_remote_retrieve_body($response);
+        if (!$response_body) {
+            error_log('Empty response from API.');
+            wp_send_json_error('Empty response from API.');
+        } else {
+            wp_send_json_success($response_body);
+        }
     }
     wp_die();
 }

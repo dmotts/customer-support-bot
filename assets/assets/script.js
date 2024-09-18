@@ -1,155 +1,248 @@
-"use strict";
+const botLoadingDelay = 3000; // Default delay for loader (3 seconds)
+const botReplyDelay = 2000;   // Default delay before showing loader (2 seconds)
+const idleTimeout = 15000;    // 15 seconds idle time before prompting the user
+const maxRetries = 3;         // Maximum number of retries for API requests
+let retryCount = 0;           // Counter to track the number of retries
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Use the AJAX URL provided by WordPress
-  const baseUrl = vacw_settings.ajax_url + '?action=vacw_api_proxy';
-  const sessionId = '20150910';
-  const loader = "<span class='loader'><span class='loader__dot'></span><span class='loader__dot'></span><span class='loader__dot'></span></span>";
-  const errorMessage = 'My apologies, I\'m not available at the moment, however, feel free to call our support team directly at 0123456789.';
-  const urlPattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-  
-  // Define bot message timing variables
-  const botLoadingDelay = 1000; // Delay before showing loading animation (in milliseconds)
-  const botReplyDelay = 2000; // Delay before showing bot's reply (in milliseconds)
+// Use dynamically passed values from WordPress localized script
+const apiUrl = vacw_settings.ajax_url + '?action=vacw_api_proxy'; // Use proxy endpoint for API requests
+const initialGreeting = "Hi! How can I assist you today?"; // Initial greeting message
+const botAvatar = vacw_settings.avatar_url; // Dynamically loaded bot avatar URL
+let isRunning = false; // State to prevent multiple simultaneous messages
+let idleTimer; // Timer to track user idle time
 
-  // DOM elements
-  const $document = document;
-  const $chatbot = $document.querySelector('.chatbot');
-  const $chatbotMessageWindow = $document.querySelector('.chatbot__message-window');
-  const $chatbotHeader = $document.querySelector('.chatbot__header');
-  const $chatbotMessages = $document.querySelector('.chatbot__messages');
-  const $chatbotInput = $document.querySelector('.chatbot__input');
-  const $chatbotSubmit = $document.querySelector('.chatbot__submit');
+// Event listeners for user input and chatbot toggle
+document.getElementById("message").addEventListener("keyup", handleKeyUp);
+document.getElementById("chatbot_toggle").onclick = toggleChatbot;
+document.querySelector(".input-send").onclick = sendMessage; // Ensure the send button triggers sendMessage
 
-  // Event listeners with debounce to avoid multiple API calls
-  document.addEventListener('keypress', debounce((event) => {
-    if (event.which === 13) validateMessage(); // Enter key
-  }, 300), false);
+// Reset the idle timer whenever user interacts
+document.body.addEventListener("mousemove", resetIdleTimer);
+document.body.addEventListener("keydown", resetIdleTimer);
 
-  $chatbotHeader.addEventListener('click', () => {
-    toggle($chatbot, 'chatbot--closed');
-    $chatbotInput.focus();
-  }, false);
-
-  $chatbotSubmit.addEventListener('click', debounce(() => {
-    validateMessage();
-  }, 300), false);
-
-  // Debounce function to limit the rate at which a function can fire
-  function debounce(func, wait, immediate) {
-    let timeout;
-    return function() {
-      const context = this, args = arguments;
-      const later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      const callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
+/**
+ * Handles the "Enter" key event to send a message.
+ * @param {KeyboardEvent} event - The key event triggered.
+ */
+function handleKeyUp(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    sendMessage();
   }
+}
 
-  // Validate user input and prepare to send a message
-  const validateMessage = () => {
-    const text = $chatbotInput.value.trim();
-    if (text) {
-      resetInputField();
-      userMessage(text);
-      sendMessageToAPI(text);
-    }
-    scrollDown();
-  };
+/**
+ * Toggles the chatbot visibility.
+ */
+function toggleChatbot() {
+  const chatbot = document.getElementById("chatbot");
+  const toggleButton = document.getElementById("chatbot_toggle");
 
-  // Send a message to the API via WordPress AJAX
-  const sendMessageToAPI = async (text = '') => {
-    try {
-      const response = await fetch(baseUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        body: new URLSearchParams({
-          query: text,
-          lang: 'en',
-          sessionId: sessionId
-        })
-      });
-      const result = await response.json();
-      
-      if (!result.success) throw new Error(result.data);
-      setResponse(result.data, botLoadingDelay + botReplyDelay);
-    } catch (error) {
-      setResponse(errorMessage, botLoadingDelay + botReplyDelay);
-      resetInputField();
-      console.error('Error communicating with API:', error);
-    }
-    aiMessage(loader, true, botLoadingDelay);
-  };
+  if (chatbot.classList.contains("collapsed")) {
+    // Expand the chatbot
+    chatbot.classList.remove("collapsed");
+    toggleButton.children[0].style.display = "none";
+    toggleButton.children[1].style.display = "";
+    setTimeout(() => appendMessage(initialGreeting, "received", false), 1000); // Show initial greeting
+    resetIdleTimer(); // Reset the idle timer when the bot is opened
+  } else {
+    // Collapse the chatbot
+    chatbot.classList.add("collapsed");
+    toggleButton.children[0].style.display = "";
+    toggleButton.children[1].style.display = "none";
+  }
+}
 
-  // Function to display a loading animation
-  const aiMessage = (content, isLoading = false, delay = 0) => {
+/**
+ * Sends a message typed by the user.
+ */
+function sendMessage() {
+  if (isRunning) return; // Prevent multiple messages at once
+
+  const msg = document.getElementById("message").value.trim();
+  if (!msg) return; // Exit if no message is typed
+
+  isRunning = true; // Indicate the bot is processing
+  appendMessage(msg, "sent"); // Display the user's message
+  resetIdleTimer(); // Reset idle timer when user sends a message
+
+  try {
+    fetchResponseFromAPI(msg);
+  } catch (error) {
+    handleError('Error initiating message send', error);
+    appendMessage("An unexpected error occurred. Please try again later.", "received");
+    isRunning = false; // Reset the state to allow further messages
+  }
+}
+
+/**
+ * Fetches bot response from the API.
+ * @param {string} userMessage - The message sent by the user.
+ */
+function fetchResponseFromAPI(userMessage) {
+  setTimeout(showLoader, botReplyDelay); // Show loading dots after a delay
+
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ query: userMessage })
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      retryCount = 0; // Reset retry count on success
+      const { botMessage, responseDelay } = data;
+      // Replace loader with bot message after delay
+      setTimeout(() => {
+        replaceLoaderWithMessage(botMessage);
+        isRunning = false; // Allow further messages
+      }, responseDelay || botLoadingDelay);
+    })
+    .catch(error => {
+      handleFetchError(error, userMessage);
+    });
+}
+
+/**
+ * Handles errors from fetching the bot response.
+ * @param {Error} error - The error encountered during fetch.
+ * @param {string} userMessage - The original message sent by the user.
+ */
+function handleFetchError(error, userMessage) {
+  console.error('Error fetching bot response:', error);
+
+  if (retryCount < maxRetries) {
+    retryCount++;
+    console.warn(`Retrying... (${retryCount}/${maxRetries})`);
+    setTimeout(() => fetchResponseFromAPI(userMessage), 2000); // Retry after 2 seconds
+  } else {
+    hideLoader(); // Remove the loader if an error occurs
+    appendMessage("Sorry, I'm having trouble connecting right now. Please try again later.", "received");
+    isRunning = false; // Allow further messages
+    retryCount = 0; // Reset retry count after max retries
+  }
+}
+
+/**
+ * Handles generic errors and logs them.
+ * @param {string} message - A custom message for the error context.
+ * @param {Error} error - The error object.
+ */
+function handleError(message, error) {
+  console.error(`${message}:`, error);
+  appendMessage("An unexpected error occurred. Please try again later.", "received");
+}
+
+/**
+ * Adds a message to the chatbox.
+ * @param {string} msg - The message content.
+ * @param {string} type - The message type ('sent' or 'received').
+ * @param {boolean} withLoader - Whether to show the loader before the message.
+ */
+function appendMessage(msg, type, withLoader = true) {
+  const messageBox = document.getElementById("message-box");
+  const div = document.createElement("div");
+  div.className = "chat-message-div";
+
+  // Add avatar for 'received' messages (bot messages)
+  const avatarHTML = type === "received" ? `<div class="avatar"><img src="${botAvatar}" alt="Bot Avatar" class="avatar-img"></div>` : ''; 
+
+  div.innerHTML = `
+    ${avatarHTML}
+    <div class="chat-message-${type}">${msg}</div>
+  `;
+
+  messageBox.appendChild(div);
+  messageBox.scrollTop = messageBox.scrollHeight; // Scroll to the newest message
+  if (type === "sent") document.getElementById("message").value = ""; // Clear the input field after sending
+
+  // Show loader if it's a bot message
+  if (withLoader && type === "received") showLoader();
+}
+
+/**
+ * Shows the loader (loading dots) in the chatbox.
+ */
+function showLoader() {
+  try {
+    const loaderDiv = createLoader(); // Create loader element
+    document.getElementById("message-box").appendChild(loaderDiv);
+    document.getElementById("message-box").scrollTop = document.getElementById("message-box").scrollHeight; // Scroll to show the loader
+  } catch (error) {
+    handleError('Error showing loader', error);
+  }
+}
+
+/**
+ * Replaces the loader with a message in the chatbox.
+ * @param {string} msg - The message content to display.
+ */
+function replaceLoaderWithMessage(msg) {
+  const loaderDiv = document.querySelector(".chat-message-div.loader");
+  if (loaderDiv) {
+    loaderDiv.style.animation = "fadeOut 0.5s forwards"; // Fade out the loader
     setTimeout(() => {
-      removeLoader();
-      $chatbotMessages.innerHTML += `
-        <li class='is-ai animation' id='${isLoading ? "is-loading" : ""}'>
-          <div class="is-ai__profile-picture">
-            <svg class="icon-avatar" viewBox="0 0 32 32">
-              <use xlink:href="#avatar" />
-            </svg>
-          </div>
-          <span class='chatbot__arrow chatbot__arrow--left'></span>
-          <div class='chatbot__message'>${content}</div>
-        </li>`;
-      scrollDown();
-    }, delay);
-  };
+      try {
+        loaderDiv.classList.remove('loader');
+        loaderDiv.innerHTML = `
+          <div class="avatar"><img src="${botAvatar}" alt="Bot Avatar" class="avatar-img"></div>
+          <div class="chat-message-received">${msg}</div>
+        `;
+        loaderDiv.style.animation = "fadeIn 0.5s forwards"; // Fade in the new message
+        document.getElementById("message-box").scrollTop = document.getElementById("message-box").scrollHeight; // Scroll to show the new message
+      } catch (error) {
+        handleError('Error replacing loader with message', error);
+      }
+    }, 500); // Matches the fadeOut duration
+  } else {
+    console.error('Loader not found when attempting to replace with message.');
+  }
+}
 
-  // Function to reset the input field after a message is sent
-  const resetInputField = () => {
-    $chatbotInput.value = '';
-  };
+/**
+ * Creates a loader element for the chat.
+ * @returns {HTMLDivElement} The loader element.
+ */
+function createLoader() {
+  try {
+    const loaderDiv = document.createElement("div");
+    loaderDiv.className = "chat-message-div loader"; // Add 'loader' class for targeting
+    loaderDiv.innerHTML = `
+      <div class="avatar"><img src="${botAvatar}" alt="Bot Avatar" class="avatar-img"></div>
+      <div class="chat-message-received">
+        <span class="loader">
+          <span class="loader__dot"></span>
+          <span class="loader__dot"></span>
+          <span class="loader__dot"></span>
+        </span>
+      </div>`;
+    return loaderDiv; // Return the loader element
+  } catch (error) {
+    handleError('Error creating loader', error);
+    return null;
+  }
+}
 
-  // Function to scroll down the chat window to the latest message
-  const scrollDown = () => {
-    const distanceToScroll = $chatbotMessageWindow.scrollHeight - ($chatbotMessages.lastChild.offsetHeight + 60);
-    $chatbotMessageWindow.scrollTop = distanceToScroll;
-  };
+/**
+ * Resets the idle timer and sets up proactive engagement.
+ */
+function resetIdleTimer() {
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    showProactiveMessage("Are you still there? Let me know if you need any help!");
+  }, idleTimeout);
+}
 
-  // Function to escape potentially unsafe characters from the input
-  const escapeScript = (unsafe) => {
-    const safeString = unsafe.replace(/</g, ' ').replace(/>/g, ' ').replace(/&/g, ' ').replace(/"/g, ' ').replace(/\\/, ' ').replace(/\s+/g, ' ');
-    return safeString.trim();
-  };
-
-  // Function to toggle classes for showing/hiding elements
-  const toggle = (element, klass) => {
-    const classes = element.className.match(/\S+/g) || [];
-    const index = classes.indexOf(klass);
-    index >= 0 ? classes.splice(index, 1) : classes.push(klass);
-    element.className = classes.join(' ');
-  };
-
-  // Function to display a user message in the chat window
-  const userMessage = (content) => {
-    $chatbotMessages.innerHTML += `
-      <li class='is-user animation'>
-        <p class='chatbot__message'>${escapeScript(content)}</p>
-        <span class='chatbot__arrow chatbot__arrow--right'></span>
-      </li>`;
-  };
-
-  // Function to remove the loading animation
-  const removeLoader = () => {
-    const loadingElem = document.getElementById('is-loading');
-    if (loadingElem) $chatbotMessages.removeChild(loadingElem);
-  };
-
-  // Function to set response from AI or show error
-  const setResponse = (val, delay = 0) => {
-    setTimeout(() => {
-      aiMessage(val);
-    }, delay);
-  };
-});
+/**
+ * Shows a proactive message after detecting user inactivity.
+ * @param {string} message - The proactive message to display.
+ */
+function showProactiveMessage(message) {
+  appendMessage(message, "received", false);
+}
