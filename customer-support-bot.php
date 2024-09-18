@@ -22,6 +22,57 @@ function vacw_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
 
+// Enqueue scripts and styles for the admin settings page
+function vacw_enqueue_admin_scripts($hook) {
+    if ($hook !== 'settings_page_vacw-settings') {
+        return;
+    }
+
+    // Enqueue the WordPress media uploader
+    wp_enqueue_media();
+
+    // Enqueue custom script to handle media uploader
+    wp_enqueue_script('vacw-admin-script', plugins_url('assets/assets/admin-script.js', __FILE__), array('jquery'), null, true);
+}
+add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_scripts');
+
+// Add chat widget to the footer
+function vacw_add_chat_widget() {
+    try {
+        echo '<div id="chatbot-container">';
+        include(plugin_dir_path(__FILE__) . 'assets/index.html');
+        echo '</div>';
+    } catch (Exception $e) {
+        error_log('Error displaying chat widget: ' . $e->getMessage());
+        echo '<div>Error loading chat widget. Please contact the administrator.</div>';
+    }
+}
+add_action('wp_footer', 'vacw_add_chat_widget');
+
+// Register settings page
+function vacw_settings_page() {
+    try {
+        include(plugin_dir_path(__FILE__) . 'includes/settings.php');
+    } catch (Exception $e) {
+        error_log('Error loading settings page: ' . $e->getMessage());
+        echo '<div>Error loading settings page. Please contact the administrator.</div>';
+    }
+}
+
+// Register settings page in the admin menu
+function vacw_register_settings_page() {
+    add_options_page('Chat Widget Settings', 'Chat Widget', 'manage_options', 'vacw-settings', 'vacw_settings_page');
+}
+add_action('admin_menu', 'vacw_register_settings_page');
+
+// Register settings
+function vacw_register_settings() {
+    register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
+    register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
+    register_setting('vacw_settings_group', 'vacw_agentive_api_key', 'sanitize_text_field'); // Register Agentive API key
+}
+add_action('admin_init', 'vacw_register_settings');
+
 // API proxy endpoint to interact with Agentive
 function vacw_agentive_proxy() {
     if (!current_user_can('manage_options')) {
