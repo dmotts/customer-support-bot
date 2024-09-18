@@ -70,6 +70,7 @@ function vacw_register_settings() {
     register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_agentive_api_key', 'sanitize_text_field'); // Register Agentive API key
+     register_setting('vacw_settings_group', 'vacw_openai_api_key', 'sanitize_text_field'); // Register OpenAI API key (optional)
 }
 add_action('admin_init', 'vacw_register_settings');
 
