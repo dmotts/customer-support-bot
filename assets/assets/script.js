@@ -5,7 +5,7 @@ const maxRetries = 3;         // Maximum number of retries for API requests
 let retryCount = 0;           // Counter to track the number of retries
 
 // Use dynamically passed values from WordPress localized script
-const apiUrl = vacw_settings.ajax_url + '?action=vacw_api_proxy'; // Use proxy endpoint for API requests
+const apiUrl = vacw_settings.ajax_url + '?action=vacw_agentive_proxy'; // Updated to use Agentive API proxy
 const initialGreeting = "Hi! How can I assist you today?"; // Initial greeting message
 const botAvatar = vacw_settings.avatar_url; // Dynamically loaded bot avatar URL
 let isRunning = false; // State to prevent multiple simultaneous messages
@@ -16,7 +16,7 @@ document.getElementById("message").addEventListener("keyup", handleKeyUp);
 document.getElementById("chatbot_toggle").onclick = toggleChatbot;
 document.querySelector(".input-send").onclick = sendMessage; // Ensure the send button triggers sendMessage
 
-// Reset the idle timer whenever user interacts
+// Reset the idle timer whenever the user interacts
 document.body.addEventListener("mousemove", resetIdleTimer);
 document.body.addEventListener("keydown", resetIdleTimer);
 
@@ -39,14 +39,12 @@ function toggleChatbot() {
   const toggleButton = document.getElementById("chatbot_toggle");
 
   if (chatbot.classList.contains("collapsed")) {
-    // Expand the chatbot
     chatbot.classList.remove("collapsed");
     toggleButton.children[0].style.display = "none";
     toggleButton.children[1].style.display = "";
     setTimeout(() => appendMessage(initialGreeting, "received", false), 1000); // Show initial greeting
     resetIdleTimer(); // Reset the idle timer when the bot is opened
   } else {
-    // Collapse the chatbot
     chatbot.classList.add("collapsed");
     toggleButton.children[0].style.display = "";
     toggleButton.children[1].style.display = "none";
@@ -64,10 +62,10 @@ function sendMessage() {
 
   isRunning = true; // Indicate the bot is processing
   appendMessage(msg, "sent"); // Display the user's message
-  resetIdleTimer(); // Reset idle timer when user sends a message
+  resetIdleTimer(); // Reset idle timer when the user sends a message
 
   try {
-    fetchResponseFromAPI(msg);
+    fetchResponseFromAPI(msg); // Fetch response from Agentive
   } catch (error) {
     handleError('Error initiating message send', error);
     appendMessage("An unexpected error occurred. Please try again later.", "received");
@@ -76,7 +74,7 @@ function sendMessage() {
 }
 
 /**
- * Fetches bot response from the API.
+ * Fetches bot response from the Agentive API via the proxy.
  * @param {string} userMessage - The message sent by the user.
  */
 function fetchResponseFromAPI(userMessage) {
@@ -87,7 +85,7 @@ function fetchResponseFromAPI(userMessage) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ query: userMessage })
+    body: JSON.stringify({ message: userMessage }) // Adjusted to use Agentive's API format
   })
     .then(response => {
       if (!response.ok) {
@@ -97,12 +95,13 @@ function fetchResponseFromAPI(userMessage) {
     })
     .then(data => {
       retryCount = 0; // Reset retry count on success
-      const { botMessage, responseDelay } = data;
+      const botMessage = data.messages[0].content; // Extract the bot message from Agentive's response
+      const responseDelay = data.responseDelay || botLoadingDelay;
       // Replace loader with bot message after delay
       setTimeout(() => {
         replaceLoaderWithMessage(botMessage);
         isRunning = false; // Allow further messages
-      }, responseDelay || botLoadingDelay);
+      }, responseDelay);
     })
     .catch(error => {
       handleFetchError(error, userMessage);
