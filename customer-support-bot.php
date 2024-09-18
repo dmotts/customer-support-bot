@@ -28,6 +28,7 @@ function vacw_enqueue_admin_scripts($hook) {
 
     // Enqueue the WordPress media uploader
     wp_enqueue_media();
+
     // Enqueue custom script to handle media uploader
     wp_enqueue_script('vacw-admin-script', plugins_url('assets/assets/admin-script.js', __FILE__), array('jquery'), null, true);
 }
