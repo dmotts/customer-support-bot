@@ -3,7 +3,7 @@ name: Deploy Plugin to Hosting
 on:
   push:
     branches:
-      - chatbot-widget
+      - error-handling-fix
 
 jobs:
   deploy:
