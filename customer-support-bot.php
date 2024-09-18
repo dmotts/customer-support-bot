@@ -6,7 +6,7 @@ Version: 0.1.4
 Author: Admin
 */
 
-// Enqueue scripts and styles
+// Enqueue scripts and styles for the front end
 function vacw_enqueue_scripts() {
     $timestamp = time(); // Current timestamp
 
@@ -19,6 +19,19 @@ function vacw_enqueue_scripts() {
     ));
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
+
+// Enqueue scripts and styles for the admin settings page
+function vacw_enqueue_admin_scripts($hook) {
+    if ($hook !== 'settings_page_vacw-settings') {
+        return;
+    }
+
+    // Enqueue the WordPress media uploader
+    wp_enqueue_media();
+    // Enqueue custom script to handle media uploader
+    wp_enqueue_script('vacw-admin-script', plugins_url('assets/assets/admin-script.js', __FILE__), array('jquery'), null, true);
+}
+add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_scripts');
 
 // Add chat widget to the footer
 function vacw_add_chat_widget() {
@@ -43,7 +56,7 @@ function vacw_settings_page() {
     }
 }
 
-// Register settings page in admin menu
+// Register settings page in the admin menu
 function vacw_register_settings_page() {
     add_options_page('Chat Widget Settings', 'Chat Widget', 'manage_options', 'vacw-settings', 'vacw_settings_page');
 }
