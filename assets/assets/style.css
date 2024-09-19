@@ -41,6 +41,10 @@
   margin: 16px !important;
 }
 
+#chatbot {
+  position: fixed;
+}
+
 /* Chatbot Toggle Button */
 #chatbot_toggle {
   position: absolute;
