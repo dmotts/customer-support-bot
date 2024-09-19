@@ -12,7 +12,7 @@ function vacw_enqueue_scripts() {
 
     wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp);
     wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true);
-    wp_enqueue_script('vacw-script', plugins_url('assets/assets/axios.min.js', __FILE__), array('jquery'), $timestamp, true);
+    wp_enqueue_script('vacw-axios', plugins_url('assets/assets/axios.min.js', __FILE__), array('jquery'), $timestamp, true);
     
 
     wp_localize_script('vacw-script', 'vacw_settings', array(
