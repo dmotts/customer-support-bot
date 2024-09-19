@@ -81,7 +81,7 @@ class Chatbot {
             return sessionId;
         } catch (error) {
             // console.error("Error initializing session:", error);
-            this.appendMessage("Error initializing session:", error);
+            this.appendMessage(`Error initializing session: ${error}`, "received");
             // this.appendMessage("Error initializing chat session. Please try again later.", "received");
         }
     }
