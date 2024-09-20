@@ -54,6 +54,11 @@ function vacw_register_settings_page() {
 }
 add_action('admin_menu', 'vacw_register_settings_page');
 
+function vacw_enqueue_admin_tailwind() {
+    wp_enqueue_style('tailwindcss', 'https://cdn.tailwindcss.com');
+}
+add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_tailwind');
+
 // The missing function to render the settings page
 function vacw_settings_page() {
     ?>
