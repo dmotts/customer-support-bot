@@ -8,6 +8,15 @@ Text Domain: customer-support-bot
 Domain Path: /languages
 */
 
+// Define Agentive API key and Assistant ID securely on the server-side
+if (!defined('AGENTIVE_API_KEY')) {
+    define('AGENTIVE_API_KEY', '664c990c-f470-4c0f-a67c-98056db461ae');
+}
+
+if (!defined('AGENTIVE_ASSISTANT_ID')) {
+    define('AGENTIVE_ASSISTANT_ID', '66ca9fa5-d934-4cf5-8dde-c73173b1a0cc');
+}
+
 // Load text domain for translations
 function vacw_load_textdomain() {
     load_plugin_textdomain('customer-support-bot', false, basename(dirname(__FILE__)) . '/languages');
@@ -38,7 +47,7 @@ function vacw_enqueue_admin_scripts($hook) {
     // Enqueue the WordPress media uploader
     wp_enqueue_media();
 
-    // Enqueue custom script to handle media uploader
+    // Enqueue custom script to handle media uploader and API key toggle
     wp_enqueue_script('vacw-admin-script', plugins_url('assets/assets/admin-script.js', __FILE__), array('jquery'), null, true);
 }
 add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_scripts');
@@ -72,6 +81,59 @@ function vacw_register_settings_page() {
 }
 add_action('admin_menu', 'vacw_register_settings_page');
 
+// Create custom backend endpoint to handle Agentive API communication
+function vacw_get_bot_response() {
+    // Verify nonce for security
+    check_ajax_referer('vacw_nonce_action', 'security');
+
+    // Check user capability
+    if (!current_user_can('read')) {
+        wp_send_json_error('Unauthorized user');
+        wp_die();
+    }
+
+    // Use the defined constants for the Agentive API key and Assistant ID
+    $api_url = 'https://agentivehub.com/api/chat';
+    $api_key = AGENTIVE_API_KEY;
+    $assistant_id = AGENTIVE_ASSISTANT_ID;
+    $session_id = sanitize_text_field($_POST['session_id']);
+    $user_message = sanitize_text_field($_POST['message']);
+
+    // Prepare the request body for the Agentive API
+    $args = array(
+        'headers' => array(
+            'Content-Type'  => 'application/json; charset=utf-8',
+        ),
+        'body'    => json_encode(array(
+            'api_key'      => $api_key,
+            'session_id'   => $session_id,
+            'type'         => 'custom_code',
+            'assistant_id' => $assistant_id,
+            'messages'     => array(
+                array('role' => 'user', 'content' => $user_message),
+            ),
+        )),
+    );
+
+    // Send the request to Agentive API
+    $response = wp_remote_post($api_url, $args);
+
+    if (is_wp_error($response)) {
+        error_log('Error communicating with Agentive API: ' . $response->get_error_message());
+        wp_send_json_error('Error communicating with the Agentive API.');
+    } else {
+        $response_body = wp_remote_retrieve_body($response);
+        if (!$response_body) {
+            error_log('Empty response from Agentive API.');
+            wp_send_json_error('Empty response from the Agentive API.');
+        } else {
+            wp_send_json_success(json_decode($response_body));
+        }
+    }
+    wp_die();
+}
+add_action('wp_ajax_vacw_get_bot_response', 'vacw_get_bot_response');
+
 // Register settings with custom sanitization and encryption
 function vacw_register_settings() {
     register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
@@ -80,7 +142,7 @@ function vacw_register_settings() {
 }
 add_action('admin_init', 'vacw_register_settings');
 
-// Custom sanitization and encryption function
+// Custom sanitization and encryption function for OpenAI API Key
 function vacw_sanitize_and_encrypt_api_key($api_key) {
     $api_key = sanitize_text_field($api_key);
     if (!empty($api_key) && defined('VACW_ENCRYPTION_KEY')) {
@@ -90,7 +152,7 @@ function vacw_sanitize_and_encrypt_api_key($api_key) {
     return '';
 }
 
-// Decryption function
+// Decryption function for OpenAI API Key
 function vacw_get_decrypted_api_key() {
     $encrypted_key = get_option('vacw_openai_api_key');
     if (!empty($encrypted_key) && defined('VACW_ENCRYPTION_KEY')) {
@@ -99,54 +161,3 @@ function vacw_get_decrypted_api_key() {
     }
     return '';
 }
-
-// Secure API proxy endpoint with nonce verification
-function vacw_api_proxy() {
-    // Verify nonce
-    check_ajax_referer('vacw_nonce_action', 'security');
-
-    // Capability check
-    if (!current_user_can('read')) {
-        wp_send_json_error('Unauthorized user');
-        wp_die();
-    }
-
-    $openai_api_key = vacw_get_decrypted_api_key();
-
-    if (empty($openai_api_key)) {
-        wp_send_json_error('API key is not set.');
-        wp_die();
-    }
-
-    $api_url = 'https://api.openai.com/v1/chat/completions';
-
-    $args = array(
-        'headers' => array(
-            'Authorization' => 'Bearer ' . $openai_api_key,
-            'Content-Type'  => 'application/json; charset=utf-8',
-        ),
-        'body'    => json_encode(array(
-            'query'     => sanitize_text_field($_POST['query']),
-            'lang'      => sanitize_text_field($_POST['lang']),
-            'sessionId' => sanitize_text_field($_POST['sessionId']),
-        )),
-    );
-
-    $response = wp_remote_post($api_url, $args);
-
-    if (is_wp_error($response)) {
-        error_log('Error communicating with API: ' . $response->get_error_message());
-        wp_send_json_error('Error communicating with the API.');
-    } else {
-        $response_body = wp_remote_retrieve_body($response);
-        if (!$response_body) {
-            error_log('Empty response from API.');
-            wp_send_json_error('Empty response from API.');
-        } else {
-            wp_send_json_success($response_body);
-        }
-    }
-    wp_die();
-}
-add_action('wp_ajax_vacw_api_proxy', 'vacw_api_proxy');
-?>
