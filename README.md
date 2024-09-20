@@ -87,6 +87,4 @@ To contribute:
 
 5. Open a pull request.
 
-
-
-
+**Please ensure your code follows the project's coding standards and includes tests where appropriate.**
