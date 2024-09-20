@@ -81,9 +81,9 @@ To contribute:
 
 4. Push to the branch:
 
-```
-git push origin my-feature-branch
-```
+    ```
+    git push origin my-feature-branch
+    ```
 
 5. Open a pull request.
 
