@@ -54,16 +54,14 @@ function vacw_register_settings_page() {
 }
 add_action('admin_menu', 'vacw_register_settings_page');
 
-// Enqueue Bootstrap for the settings page
-function vacw_enqueue_admin_bootstrap($hook) {
-    // Only load Bootstrap CSS and JS on the chat widget settings page
+// Enqueue the custom admin styles for the settings page
+function vacw_enqueue_custom_admin_styles($hook) {
     if ($hook != 'settings_page_vacw-settings') {
         return;
     }
-    wp_enqueue_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-    wp_enqueue_script('bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js', array('jquery'), null, true);
+    wp_enqueue_style('vacw-admin-styles', plugins_url('assets/admin-styles.css', __FILE__));
 }
-add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_bootstrap');
+add_action('admin_enqueue_scripts', 'vacw_enqueue_custom_admin_styles');
 
 // Render the settings page
 function vacw_settings_page() {
