@@ -25,13 +25,13 @@
             <tr valign="top">
                 <th scope="row"><?php _e('OpenAI API Key', 'customer-support-bot'); ?></th>
                 <td>
-                    <input type="password" name="vacw_openai_api_key" value="" placeholder="<?php _e('Enter new API key to update', 'customer-support-bot'); ?>" />
-                    <?php if (get_option('vacw_openai_api_key')): ?>
-                        <p><?php _e('An API key is already set. Enter a new key to update it.', 'customer-support-bot'); ?></p>
-                    <?php else: ?>
-                        <p><?php _e('No API key set. Please enter your OpenAI API key.', 'customer-support-bot'); ?></p>
-                    <?php endif; ?>
-                    <p class="description"><?php _e('Enter your OpenAI API key for chatbot functionality.', 'customer-support-bot'); ?></p>
+                    <div style="position: relative;">
+                        <input type="password" name="vacw_openai_api_key" id="vacw_openai_api_key" value="<?php echo esc_attr(vacw_get_decrypted_api_key()); ?>" />
+                        <button type="button" id="toggle_openai_api_key_visibility" style="position: absolute; right: 10px; top: 3px; background: none; border: none; cursor: pointer;">
+                            <span class="dashicons dashicons-visibility"></span>
+                        </button>
+                    </div>
+                    <p class="description"><?php _e('Enter your OpenAI API key. Click the eye icon to toggle visibility.', 'customer-support-bot'); ?></p>
                 </td>
             </tr>
         </table>
