@@ -2,22 +2,29 @@
 /*
 Plugin Name: Customer Support Bot
 Description: Customer Support Bot is designed to help users when the assistant is not available.
-Version: 0.1.4
+Version: 0.1.5
 Author: Admin
+Text Domain: customer-support-bot
+Domain Path: /languages
 */
+
+// Load text domain for translations
+function vacw_load_textdomain() {
+    load_plugin_textdomain('customer-support-bot', false, basename(dirname(__FILE__)) . '/languages');
+}
+add_action('plugins_loaded', 'vacw_load_textdomain');
 
 // Enqueue scripts and styles for the front end
 function vacw_enqueue_scripts() {
-    $timestamp = time(); // Current timestamp
+    $timestamp = time();
 
     wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp);
     wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true);
-    wp_enqueue_script('vacw-axios', plugins_url('assets/assets/axios.min.js', __FILE__), array('jquery'), $timestamp, true);
-    
-
     wp_localize_script('vacw-script', 'vacw_settings', array(
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'avatar_url' => esc_url(get_option('vacw_avatar_url', plugins_url('assets/default-avatar.png', __FILE__))), // Pass avatar URL to JavaScript
+        'ajax_url'   => admin_url('admin-ajax.php'),
+        'avatar_url' => esc_url(get_option('vacw_avatar_url', plugins_url('assets/default-avatar.png', __FILE__))),
+        'bot_greeting' => __('Hi! How can I assist you today?', 'customer-support-bot'),
+        'security'   => wp_create_nonce('vacw_nonce_action'),
     ));
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
@@ -44,7 +51,7 @@ function vacw_add_chat_widget() {
         echo '</div>';
     } catch (Exception $e) {
         error_log('Error displaying chat widget: ' . $e->getMessage());
-        echo '<div>Error loading chat widget. Please contact the administrator.</div>';
+        echo '<div>' . __('Error loading chat widget. Please contact the administrator.', 'customer-support-bot') . '</div>';
     }
 }
 add_action('wp_footer', 'vacw_add_chat_widget');
@@ -55,42 +62,72 @@ function vacw_settings_page() {
         include(plugin_dir_path(__FILE__) . 'includes/settings.php');
     } catch (Exception $e) {
         error_log('Error loading settings page: ' . $e->getMessage());
-        echo '<div>Error loading settings page. Please contact the administrator.</div>';
+        echo '<div>' . __('Error loading settings page. Please contact the administrator.', 'customer-support-bot') . '</div>';
     }
 }
 
 // Register settings page in the admin menu
 function vacw_register_settings_page() {
-    add_options_page('Chat Widget Settings', 'Chat Widget', 'manage_options', 'vacw-settings', 'vacw_settings_page');
+    add_options_page(__('Chat Widget Settings', 'customer-support-bot'), __('Chat Widget', 'customer-support-bot'), 'manage_options', 'vacw-settings', 'vacw_settings_page');
 }
 add_action('admin_menu', 'vacw_register_settings_page');
 
-// Register settings
+// Register settings with custom sanitization and encryption
 function vacw_register_settings() {
     register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
-    register_setting('vacw_settings_group', 'vacw_openai_api_key', 'sanitize_text_field');
+    register_setting('vacw_settings_group', 'vacw_openai_api_key', 'vacw_sanitize_and_encrypt_api_key');
 }
 add_action('admin_init', 'vacw_register_settings');
 
-// API proxy endpoint to protect sensitive keys
+// Custom sanitization and encryption function
+function vacw_sanitize_and_encrypt_api_key($api_key) {
+    $api_key = sanitize_text_field($api_key);
+    if (!empty($api_key) && defined('VACW_ENCRYPTION_KEY')) {
+        $encrypted_key = openssl_encrypt($api_key, 'AES-256-CBC', VACW_ENCRYPTION_KEY, 0, substr(VACW_ENCRYPTION_KEY, 0, 16));
+        return $encrypted_key;
+    }
+    return '';
+}
+
+// Decryption function
+function vacw_get_decrypted_api_key() {
+    $encrypted_key = get_option('vacw_openai_api_key');
+    if (!empty($encrypted_key) && defined('VACW_ENCRYPTION_KEY')) {
+        $decrypted_key = openssl_decrypt($encrypted_key, 'AES-256-CBC', VACW_ENCRYPTION_KEY, 0, substr(VACW_ENCRYPTION_KEY, 0, 16));
+        return $decrypted_key;
+    }
+    return '';
+}
+
+// Secure API proxy endpoint with nonce verification
 function vacw_api_proxy() {
-    if (!current_user_can('manage_options')) {
+    // Verify nonce
+    check_ajax_referer('vacw_nonce_action', 'security');
+
+    // Capability check
+    if (!current_user_can('read')) {
         wp_send_json_error('Unauthorized user');
         wp_die();
     }
 
+    $openai_api_key = vacw_get_decrypted_api_key();
+
+    if (empty($openai_api_key)) {
+        wp_send_json_error('API key is not set.');
+        wp_die();
+    }
+
     $api_url = 'https://api.openai.com/v1/chat/completions';
-    $openai_api_key = get_option('vacw_openai_api_key');
 
     $args = array(
         'headers' => array(
             'Authorization' => 'Bearer ' . $openai_api_key,
-            'Content-Type' => 'application/json; charset=utf-8',
+            'Content-Type'  => 'application/json; charset=utf-8',
         ),
-        'body' => json_encode(array(
-            'query' => sanitize_text_field($_POST['query']),
-            'lang' => sanitize_text_field($_POST['lang']),
+        'body'    => json_encode(array(
+            'query'     => sanitize_text_field($_POST['query']),
+            'lang'      => sanitize_text_field($_POST['lang']),
             'sessionId' => sanitize_text_field($_POST['sessionId']),
         )),
     );
@@ -112,5 +149,4 @@ function vacw_api_proxy() {
     wp_die();
 }
 add_action('wp_ajax_vacw_api_proxy', 'vacw_api_proxy');
-add_action('wp_ajax_nopriv_vacw_api_proxy', 'vacw_api_proxy');
 ?>
