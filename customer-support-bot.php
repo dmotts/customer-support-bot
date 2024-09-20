@@ -49,10 +49,26 @@ function vacw_register_settings_page() {
         __('Chat Widget', 'customer-support-bot'),
         'manage_options',
         'vacw-settings',
-        'vacw_settings_page'
+        'vacw_settings_page'  // Make sure the function exists
     );
 }
 add_action('admin_menu', 'vacw_register_settings_page');
+
+// The missing function to render the settings page
+function vacw_settings_page() {
+    ?>
+    <div class="wrap">
+        <h1><?php _e('Customer Support Bot Settings', 'customer-support-bot'); ?></h1>
+        <form method="post" action="options.php">
+            <?php
+                settings_fields('vacw_settings_group');
+                do_settings_sections('vacw_settings_group');
+                submit_button();
+            ?>
+        </form>
+    </div>
+    <?php
+}
 
 // Register settings including the bot greeting
 function vacw_register_settings() {
@@ -166,30 +182,29 @@ function vacw_get_bot_response() {
         'body'    => json_encode(array(
             'api_key'      => $api_key,
             'session_id'   => $session_id,
-            'type'         => 'custom_code',
-            'assistant_id' => $assistant_id,
-            'messages'     => array(
-                array('role' => 'user', 'content' => $user_message),
-            ),
-        )),
-    );
+    'type'         => 'custom_code',
+    'assistant_id' => $assistant_id,
+    'messages'     => array(
+        array('role' => 'user', 'content' => $user_message),
+    ),
+    )),
+);
 
-    // Send the request to Agentive API
-    $response = wp_remote_post($api_url, $args);
+// Send the request to Agentive API
+$response = wp_remote_post($api_url, $args);
 
-    if (is_wp_error($response)) {
-        error_log('Error communicating with Agentive API: ' . $response->get_error_message());
-        wp_send_json_error('Error communicating with the Agentive API.');
+if (is_wp_error($response)) {
+    error_log('Error communicating with Agentive API: ' . $response->get_error_message());
+    wp_send_json_error('Error communicating with the Agentive API.');
+} else {
+    $response_body = wp_remote_retrieve_body($response);
+    if (!$response_body) {
+        error_log('Empty response from Agentive API.');
+        wp_send_json_error('Empty response from the Agentive API.');
     } else {
-        $response_body = wp_remote_retrieve_body($response);
-        if (!$response_body) {
-            error_log('Empty response from Agentive API.');
-            wp_send_json_error('Empty response from the Agentive API.');
-        } else {
-            wp_send_json_success(json_decode($response_body));
-        }
+        wp_send_json_success(json_decode($response_body));
     }
-    wp_die();
+}
+wp_die();
 }
 add_action('wp_ajax_vacw_get_bot_response', 'vacw_get_bot_response');
-?>
