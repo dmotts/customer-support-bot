@@ -1,0 +1,14 @@
+#wp-admin-bar-vacw_chat_widget_settings .dashicons {
+    font-size: 16px;
+    vertical-align: middle;
+    padding-right: 5px;
+}
+
+#wp-admin-bar-vacw_chat_widget_settings {
+    color: #fff; /* Match the top menu color */
+    padding-right: 10px;
+}
+
+#wp-admin-bar-vacw_chat_widget_settings:hover {
+    color: #00bcd4; /* Change color on hover */
+}
