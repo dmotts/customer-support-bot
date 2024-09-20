@@ -25,7 +25,7 @@ add_action('plugins_loaded', 'vacw_load_textdomain');
 
 // Enqueue scripts and styles for the front end
 function vacw_enqueue_scripts() {
-    $timestamp = time();  // Cache busting
+    $timestamp = time();  // Cache busting to ensure latest versions of CSS/JS are loaded
 
     wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp);
     wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true);
@@ -50,9 +50,8 @@ add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_bar_styles');
 
 // Add chat widget settings link to the admin bar (front-end and back-end)
 function vacw_add_chat_widget_settings_to_admin_bar($wp_admin_bar) {
-    // Check if the user is logged in and has the capability to manage options (usually admins)
+    // Ensure that only admins or users with proper capabilities can see this link
     if (current_user_can('manage_options')) {
-        // Add the custom menu item for Chat Widget settings
         $wp_admin_bar->add_node(array(
             'id'    => 'vacw_chat_widget_settings',  // Unique ID for the menu item
             'title' => '<span class="dashicons dashicons-format-chat"></span> ' . __('Chat Widget Settings', 'customer-support-bot'),  // Menu title with icon
@@ -66,7 +65,7 @@ function vacw_add_chat_widget_settings_to_admin_bar($wp_admin_bar) {
 }
 add_action('admin_bar_menu', 'vacw_add_chat_widget_settings_to_admin_bar', 999);
 
-// Add Chat Widget Settings to the WordPress Settings menu
+// Add Chat Widget Settings to the WordPress Settings menu in the dashboard
 function vacw_register_settings_page() {
     add_options_page(
         __('Chat Widget Settings', 'customer-support-bot'),
@@ -88,7 +87,7 @@ function vacw_settings_page() {
     }
 }
 
-// Register settings for the plugin
+// Register plugin settings
 function vacw_register_settings() {
     register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
@@ -116,7 +115,20 @@ function vacw_get_decrypted_api_key() {
     return '';
 }
 
-// Create custom backend endpoint to handle Agentive API communication
+// Add chat widget to the footer (front-end display of the chat widget)
+function vacw_add_chat_widget() {
+    try {
+        echo '<div id="chatbot-container">';
+        include(plugin_dir_path(__FILE__) . 'assets/index.html');  // Ensure the path to index.html is correct
+        echo '</div>';
+    } catch (Exception $e) {
+        error_log('Error displaying chat widget: ' . $e->getMessage());
+        echo '<div>' . __('Error loading chat widget. Please contact the administrator.', 'customer-support-bot') . '</div>';
+    }
+}
+add_action('wp_footer', 'vacw_add_chat_widget');
+
+// Handle Agentive API communication for bot responses
 function vacw_get_bot_response() {
     // Verify nonce for security
     check_ajax_referer('vacw_nonce_action', 'security');
