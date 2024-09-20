@@ -207,35 +207,25 @@ class Chatbot {
         localStorage.removeItem("session_data");  // Remove the session data from localStorage
     }
 
-// Initialize the session by contacting the backend for a new session ID
-async initializeSession() {
-    try {
-        // Call the backend to initialize a new session
-        const response = await axios.post(vacw_settings.ajax_url, {
-            action: 'vacw_initialize_session',   // Specify the backend action to initialize session
-            security: vacw_settings.security     // Include security nonce for the request
-        });
+    // Initialize the session by contacting the backend for a new session ID
+    async initializeSession() {
+        try {
+            // Call the backend to initialize a new session
+            const response = await axios.post(vacw_settings.ajax_url, {
+                action: 'vacw_initialize_session',   // Specify the backend action to initialize session
+                security: vacw_settings.security     // Include security nonce for the request
+            });
 
-        // Extract the session ID from the server's response
-        const sessionId = response.data.session_id;  // Ensure that the session ID is correctly accessed
+            // Extract the session ID from the server's response
+            const sessionId = response.data.data.session_id;
 
-        console.log(`Session ID: ${sessionId}`);  // Corrected variable reference
+            // Store the new session ID in localStorage
+            this.storeSession(sessionId);
+            return sessionId;
 
-        // Store the new session ID in localStorage
-        this.storeSession(sessionId);
-        return sessionId;
-
-    } catch (error) {
-        // Enhanced error handling
-        if (error.response) {
-            // Server responded with a status other than 2xx
-            this.appendMessage(`Error initializing session: ${error.response.data.message || error.response.data}`, "received");
-        } else if (error.request) {
-            // Request was made but no response received
-            this.appendMessage('Error initializing session: No response from server', "received");
-        } else {
-            // Other errors (e.g., setup issues)
-            this.appendMessage(`Error initializing session: ${error.message}`, "received");
+        } catch (error) {
+            // Handle any errors encountered during session initialization
+            this.appendMessage(`Error initializing session: ${error.response ? error.response.data : error.message}`, "received");
         }
     }
 }
