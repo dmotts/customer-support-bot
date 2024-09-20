@@ -2,7 +2,7 @@
 /*
 Plugin Name: Customer Support Bot
 Description: Customer Support Bot is designed to help users when the assistant is not available.
-Version: 0.1.5
+Version: 0.1.6
 Author: Admin
 Text Domain: customer-support-bot
 Domain Path: /languages
@@ -29,43 +29,20 @@ function vacw_enqueue_scripts() {
 
     wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp);
     wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true);
+    
+    // Get bot greeting from the settings
+    $bot_greeting = get_option('vacw_bot_greeting', 'Hi! How can I assist you today?');
+    
     wp_localize_script('vacw-script', 'vacw_settings', array(
         'ajax_url'   => admin_url('admin-ajax.php'),
         'avatar_url' => esc_url(get_option('vacw_avatar_url', plugins_url('assets/default-avatar.png', __FILE__))),
-        'bot_greeting' => __('Hi! How can I assist you today?', 'customer-support-bot'),
+        'bot_greeting' => esc_html($bot_greeting), // Pass the greeting to the front-end
         'security'   => wp_create_nonce('vacw_nonce_action'),
     ));
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
 
-// Enqueue admin styles for custom admin bar styling
-function vacw_enqueue_admin_bar_styles() {
-    // Check if the admin bar is showing and load the CSS only for admins or users with proper capability
-    if (is_admin_bar_showing() && current_user_can('manage_options')) {
-        wp_enqueue_style('vacw-admin-bar-styles', plugins_url('assets/assets/admin-styles.css', __FILE__), array(), time());
-    }
-}
-add_action('wp_enqueue_scripts', 'vacw_enqueue_admin_bar_styles');
-add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_bar_styles');
-
-// Add chat widget settings link to the admin bar (front-end and back-end)
-function vacw_add_chat_widget_settings_to_admin_bar($wp_admin_bar) {
-    // Ensure that only admins or users with proper capabilities can see this link
-    if (current_user_can('manage_options')) {
-        $wp_admin_bar->add_node(array(
-            'id'    => 'vacw_chat_widget_settings',  // Unique ID for the menu item
-            'title' => '<span class="dashicons dashicons-format-chat"></span> ' . __('Chat Widget Settings', 'customer-support-bot'),  // Menu title with icon
-            'href'  => admin_url('options-general.php?page=vacw-settings'),  // Link to the settings page of the chat widget
-            'meta'  => array(
-                'class' => 'vacw-chat-widget-settings',  // Custom class for the menu item
-                'title' => __('Chat Widget Settings', 'customer-support-bot')  // Tooltip text for the menu item
-            ),
-        ));
-    }
-}
-add_action('admin_bar_menu', 'vacw_add_chat_widget_settings_to_admin_bar', 999);
-
-// Add Chat Widget Settings to the WordPress Settings menu in the dashboard
+// Register settings page
 function vacw_register_settings_page() {
     add_options_page(
         __('Chat Widget Settings', 'customer-support-bot'),
@@ -77,21 +54,12 @@ function vacw_register_settings_page() {
 }
 add_action('admin_menu', 'vacw_register_settings_page');
 
-// Display the settings page
-function vacw_settings_page() {
-    try {
-        include(plugin_dir_path(__FILE__) . 'includes/settings.php');
-    } catch (Exception $e) {
-        error_log('Error loading settings page: ' . $e->getMessage());
-        echo '<div>' . __('Error loading settings page. Please contact the administrator.', 'customer-support-bot') . '</div>';
-    }
-}
-
-// Register plugin settings
+// Register settings including the bot greeting
 function vacw_register_settings() {
     register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_openai_api_key', 'vacw_sanitize_and_encrypt_api_key');
+    register_setting('vacw_settings_group', 'vacw_bot_greeting', 'sanitize_text_field');  // Register bot greeting setting
 }
 add_action('admin_init', 'vacw_register_settings');
 
@@ -128,7 +96,52 @@ function vacw_add_chat_widget() {
 }
 add_action('wp_footer', 'vacw_add_chat_widget');
 
-// Handle Agentive API communication for bot responses
+// Handle Agentive API session initialization
+function vacw_initialize_session() {
+    // Verify nonce for security
+    check_ajax_referer('vacw_nonce_action', 'security');
+
+    // Check user capability
+    if (!current_user_can('read')) {
+        wp_send_json_error('Unauthorized user');
+        wp_die();
+    }
+
+    $api_url = 'https://agentivehub.com/api/chat/session';
+    $api_key = AGENTIVE_API_KEY;
+    $assistant_id = AGENTIVE_ASSISTANT_ID;
+
+    // Prepare the request body for session initialization
+    $args = array(
+        'headers' => array(
+            'Content-Type'  => 'application/json; charset=utf-8',
+        ),
+        'body'    => json_encode(array(
+            'api_key'      => $api_key,
+            'assistant_id' => $assistant_id,
+        )),
+    );
+
+    // Send the request to Agentive API for session creation
+    $response = wp_remote_post($api_url, $args);
+
+    if (is_wp_error($response)) {
+        error_log('Error communicating with Agentive API: ' . $response->get_error_message());
+        wp_send_json_error('Error communicating with the Agentive API.');
+    } else {
+        $response_body = wp_remote_retrieve_body($response);
+        if (!$response_body) {
+            error_log('Empty response from Agentive API.');
+            wp_send_json_error('Empty response from the Agentive API.');
+        } else {
+            wp_send_json_success(json_decode($response_body));
+        }
+    }
+    wp_die();
+}
+add_action('wp_ajax_vacw_initialize_session', 'vacw_initialize_session');
+
+// Handle Agentive API bot response communication
 function vacw_get_bot_response() {
     // Verify nonce for security
     check_ajax_referer('vacw_nonce_action', 'security');
@@ -139,7 +152,6 @@ function vacw_get_bot_response() {
         wp_die();
     }
 
-    // Use the defined constants for the Agentive API key and Assistant ID
     $api_url = 'https://agentivehub.com/api/chat';
     $api_key = AGENTIVE_API_KEY;
     $assistant_id = AGENTIVE_ASSISTANT_ID;
@@ -180,3 +192,4 @@ function vacw_get_bot_response() {
     wp_die();
 }
 add_action('wp_ajax_vacw_get_bot_response', 'vacw_get_bot_response');
+?>
