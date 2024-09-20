@@ -25,7 +25,7 @@ add_action('plugins_loaded', 'vacw_load_textdomain');
 
 // Enqueue scripts and styles for the front end
 function vacw_enqueue_scripts() {
-    $timestamp = time();
+    $timestamp = time();  // Cache busting
 
     wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp);
     wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true);
@@ -48,10 +48,10 @@ function vacw_enqueue_admin_bar_styles() {
 add_action('wp_enqueue_scripts', 'vacw_enqueue_admin_bar_styles');
 add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_bar_styles');
 
-// Add chat widget settings link to the admin bar
+// Add chat widget settings link to the admin bar (front-end and back-end)
 function vacw_add_chat_widget_settings_to_admin_bar($wp_admin_bar) {
     // Check if the user is logged in and has the capability to manage options (usually admins)
-    if (!is_admin() && current_user_can('manage_options')) {
+    if (current_user_can('manage_options')) {
         // Add the custom menu item for Chat Widget settings
         $wp_admin_bar->add_node(array(
             'id'    => 'vacw_chat_widget_settings',  // Unique ID for the menu item
@@ -66,7 +66,55 @@ function vacw_add_chat_widget_settings_to_admin_bar($wp_admin_bar) {
 }
 add_action('admin_bar_menu', 'vacw_add_chat_widget_settings_to_admin_bar', 999);
 
-// Other plugin-related functions...
+// Add Chat Widget Settings to the WordPress Settings menu
+function vacw_register_settings_page() {
+    add_options_page(
+        __('Chat Widget Settings', 'customer-support-bot'),
+        __('Chat Widget', 'customer-support-bot'),
+        'manage_options',
+        'vacw-settings',
+        'vacw_settings_page'
+    );
+}
+add_action('admin_menu', 'vacw_register_settings_page');
+
+// Display the settings page
+function vacw_settings_page() {
+    try {
+        include(plugin_dir_path(__FILE__) . 'includes/settings.php');
+    } catch (Exception $e) {
+        error_log('Error loading settings page: ' . $e->getMessage());
+        echo '<div>' . __('Error loading settings page. Please contact the administrator.', 'customer-support-bot') . '</div>';
+    }
+}
+
+// Register settings for the plugin
+function vacw_register_settings() {
+    register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
+    register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
+    register_setting('vacw_settings_group', 'vacw_openai_api_key', 'vacw_sanitize_and_encrypt_api_key');
+}
+add_action('admin_init', 'vacw_register_settings');
+
+// Sanitize and encrypt the OpenAI API key
+function vacw_sanitize_and_encrypt_api_key($api_key) {
+    $api_key = sanitize_text_field($api_key);
+    if (!empty($api_key) && defined('VACW_ENCRYPTION_KEY')) {
+        $encrypted_key = openssl_encrypt($api_key, 'AES-256-CBC', VACW_ENCRYPTION_KEY, 0, substr(VACW_ENCRYPTION_KEY, 0, 16));
+        return $encrypted_key;
+    }
+    return '';
+}
+
+// Decrypt the OpenAI API key
+function vacw_get_decrypted_api_key() {
+    $encrypted_key = get_option('vacw_openai_api_key');
+    if (!empty($encrypted_key) && defined('VACW_ENCRYPTION_KEY')) {
+        $decrypted_key = openssl_decrypt($encrypted_key, 'AES-256-CBC', VACW_ENCRYPTION_KEY, 0, substr(VACW_ENCRYPTION_KEY, 0, 16));
+        return $decrypted_key;
+    }
+    return '';
+}
 
 // Create custom backend endpoint to handle Agentive API communication
 function vacw_get_bot_response() {
@@ -120,31 +168,3 @@ function vacw_get_bot_response() {
     wp_die();
 }
 add_action('wp_ajax_vacw_get_bot_response', 'vacw_get_bot_response');
-
-// Register settings with custom sanitization and encryption
-function vacw_register_settings() {
-    register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
-    register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
-    register_setting('vacw_settings_group', 'vacw_openai_api_key', 'vacw_sanitize_and_encrypt_api_key');
-}
-add_action('admin_init', 'vacw_register_settings');
-
-// Custom sanitization and encryption function for OpenAI API Key
-function vacw_sanitize_and_encrypt_api_key($api_key) {
-    $api_key = sanitize_text_field($api_key);
-    if (!empty($api_key) && defined('VACW_ENCRYPTION_KEY')) {
-        $encrypted_key = openssl_encrypt($api_key, 'AES-256-CBC', VACW_ENCRYPTION_KEY, 0, substr(VACW_ENCRYPTION_KEY, 0, 16));
-        return $encrypted_key;
-    }
-    return '';
-}
-
-// Decryption function for OpenAI API Key
-function vacw_get_decrypted_api_key() {
-    $encrypted_key = get_option('vacw_openai_api_key');
-    if (!empty($encrypted_key) && defined('VACW_ENCRYPTION_KEY')) {
-        $decrypted_key = openssl_decrypt($encrypted_key, 'AES-256-CBC', VACW_ENCRYPTION_KEY, 0, substr(VACW_ENCRYPTION_KEY, 0, 16));
-        return $decrypted_key;
-    }
-    return '';
-}
