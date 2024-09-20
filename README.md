@@ -12,16 +12,44 @@ Customer Support Bot is a WordPress plugin that allows businesses to automate cu
 - [Axios](https://axios-http.com/docs/intro) – Promise-based HTTP client used to interact with the Agentive API for AI communication.
 - [Bootstrap](https://getbootstrap.com/) – Frontend CSS framework for styling the admin settings page.
 - [Agentive API](https://agentivehub.com) – API for the chatbot functionality, managing user sessions and responses.
-  
+
+## Features
+
+- **Knowledge Base Searches**: Retrieve helpful articles from a predefined knowledge base.
+- **Appointment Scheduling**: Allow users to schedule appointments through the bot.
+- **Customization Settings**: Customize bot appearance and settings in the WordPress admin panel.
+- **Ticket Categorization**: Automatically sort incoming support tickets into different categories. *(Future Implementation)*
+- **Basic Troubleshooting**: Provide users with automated solutions for common problems. *(Future Implementation)*
+- **Status Updates**: Notify users of ticket status and resolution progress. *(Future Implementation)*
+- **Password Resets**: Allow users to reset their passwords through the bot. *(Future Implementation)*
+- **Billing Inquiries**: Help users resolve billing-related questions and issues. *(Future Implementation)*
+- **Product Information**: Provide detailed information on products. *(Future Implementation)*
+- **Return/Refund Processing**: Guide users through the process of returning items or requesting refunds. *(Future Implementation)*
+- **Escalation Management**: Automatically escalate unresolved issues to human support agents. *(Future Implementation)*
+- **Satisfaction Surveys**: Gather feedback from users about their support experience. *(Future Implementation)*
+- **Multi-language Support**: Offer support in multiple languages. *(Future Implementation)*
+
 ## Installation
 
-To install the Customer Support Bot plugin in WordPress:
+You can install the **Customer Support Bot** plugin in two ways:
+
+### 1. Download from GitHub
+
+- Go to the [GitHub repository](https://github.com/dmotts/customer-support-bot) and download the repository as a ZIP file.
+- Navigate to your WordPress admin dashboard.
+- Go to **Plugins > Add New > Upload Plugin**.
+- Upload the ZIP file and click **Install Now**.
+- After installation, click **Activate Plugin**.
+
+### 2. Clone the Repository
+
+Alternatively, you can clone the repository using Git:
 
 1. Clone the repository:
 
-    ```
+    \```
     git clone https://github.com/dmotts/customer-support-bot.git
-    ```
+    \```
 
 2. Navigate to your WordPress plugin directory (usually located at `/wp-content/plugins/`).
 
@@ -41,21 +69,21 @@ To contribute:
 
 2. Create a new branch for your feature:
 
-    ```
+    \```
     git checkout -b my-feature-branch
-    ```
+    \```
 
 3. Make your changes and commit them:
 
-    ```
+    \```
     git commit -m 'Add some feature'
-    ```
+    \```
 
 4. Push to the branch:
 
-    ```
+    \```
     git push origin my-feature-branch
-    ```
+    \```
 
 5. Open a pull request.
 
