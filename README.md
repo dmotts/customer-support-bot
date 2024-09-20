@@ -1,6 +1,6 @@
 # Customer Support Bot (Wordpress Plugin)
 
-![Customer Support Bot Preview](https://res.cloudinary.com/dzpafdvkm/image/upload/v1725829845/Portfolio/virtual-assistant-chat-widget.png)
+![Customer Support Bot Preview](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
 
 
 ## Project Overview
