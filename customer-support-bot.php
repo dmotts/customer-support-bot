@@ -38,19 +38,20 @@ function vacw_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
 
-// Enqueue scripts and styles for the admin settings page
-function vacw_enqueue_admin_scripts($hook) {
-    if ($hook !== 'settings_page_vacw-settings') {
+// Enqueue the custom admin styles and scripts for the settings page
+function vacw_enqueue_admin_assets($hook) {
+    // Check if we are on the settings page for the chat widget
+    if ($hook != 'settings_page_vacw-settings') {
         return;
     }
 
-    // Enqueue the WordPress media uploader
-    wp_enqueue_media();
+    // Enqueue admin styles from the assets/assets directory
+    wp_enqueue_style('vacw-admin-styles', plugins_url('assets/assets/admin-styles.css', __FILE__));
 
-    // Enqueue custom script to handle media uploader and API key toggle
+    // Enqueue admin script from the assets/assets directory
     wp_enqueue_script('vacw-admin-script', plugins_url('assets/assets/admin-script.js', __FILE__), array('jquery'), null, true);
 }
-add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_scripts');
+add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_assets');
 
 // Add chat widget to the footer
 function vacw_add_chat_widget() {
