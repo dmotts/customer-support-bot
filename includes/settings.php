@@ -1,16 +1,6 @@
 <div class="wrap">
     <h1 class="text-3xl font-bold mb-5"><?php _e('Customer Support Bot Settings', 'customer-support-bot'); ?></h1>
     
-    <!-- Include Tailwind CSS CDN for styling -->
-    <script>
-       tailwind.config = {
-          theme: {
-             extend: {},
-          },
-       }
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    
     <form method="post" action="options.php" class="space-y-6">
         <?php settings_fields('vacw_settings_group'); ?>
         <?php do_settings_sections('vacw_settings_group'); ?>
