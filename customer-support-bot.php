@@ -38,7 +38,7 @@ function vacw_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
 
- // Enqueue Bootstrap CSS and JS for admin settings page
+// Enqueue Bootstrap, custom CSS/JS, and WordPress media uploader for admin settings page
 function vacw_enqueue_admin_assets($hook) {
     if ($hook != 'settings_page_vacw-settings') {
         return;
@@ -49,6 +49,9 @@ function vacw_enqueue_admin_assets($hook) {
     
     // Enqueue Bootstrap 5.3 JS bundle (includes Popper.js)
     wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js', array('jquery'), null, true);
+
+    // Enqueue the WordPress media uploader
+    wp_enqueue_media();
 
     // Enqueue custom admin styles and scripts (if needed)
     wp_enqueue_style('vacw-admin-styles', plugins_url('assets/assets/admin-styles.css', __FILE__));
