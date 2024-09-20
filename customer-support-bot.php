@@ -64,7 +64,7 @@ function vacw_enqueue_admin_tailwind($hook) {
 }
 add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_tailwind');
 
-// The missing function to render the settings page
+// Render the settings page
 function vacw_settings_page() {
     ?>
     <div class="wrap">
