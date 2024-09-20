@@ -177,3 +177,37 @@ function vacw_get_decrypted_api_key() {
     }
     return '';
 }
+
+// Handle Agentive API session initialization
+function vacw_initialize_session() {
+    check_ajax_referer('vacw_nonce_action', 'security');
+
+    // Check user capability
+    if (!current_user_can('read')) {
+        wp_send_json_error('Unauthorized user');
+        wp_die();
+    }
+
+    // Assuming Agentive API interaction to get session ID
+    $api_url = 'https://agentivehub.com/api/chat/session';
+    $response = wp_remote_post($api_url, array(
+        'body' => json_encode(array(
+            'api_key' => AGENTIVE_API_KEY,
+            'assistant_id' => AGENTIVE_ASSISTANT_ID,
+        )),
+    ));
+
+    if (is_wp_error($response)) {
+        wp_send_json_error('Error initializing session');
+    } else {
+        $response_body = json_decode(wp_remote_retrieve_body($response), true);
+        $session_id = $response_body['session_id'] ?? null;
+
+        if ($session_id) {
+            wp_send_json_success(array('session_id' => $session_id));
+        } else {
+            wp_send_json_error('Session ID not found');
+        }
+    }
+    wp_die();
+}
