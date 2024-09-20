@@ -54,8 +54,13 @@ function vacw_register_settings_page() {
 }
 add_action('admin_menu', 'vacw_register_settings_page');
 
-function vacw_enqueue_admin_tailwind() {
-    wp_enqueue_style('tailwindcss', 'https://cdn.tailwindcss.com');
+// Tailwind enqueue (only for settings page)
+function vacw_enqueue_admin_tailwind($hook) {
+    // Only load Tailwind CSS on the chat widget settings page
+    if ($hook != 'settings_page_vacw-settings') {
+        return;
+    }
+    wp_enqueue_script('tailwindcss', 'https://cdn.tailwindcss.com');
 }
 add_action('admin_enqueue_scripts', 'vacw_enqueue_admin_tailwind');
 
@@ -187,29 +192,29 @@ function vacw_get_bot_response() {
         'body'    => json_encode(array(
             'api_key'      => $api_key,
             'session_id'   => $session_id,
-    'type'         => 'custom_code',
-    'assistant_id' => $assistant_id,
-    'messages'     => array(
-        array('role' => 'user', 'content' => $user_message),
-    ),
-    )),
-);
+            'type'         => 'custom_code',
+            'assistant_id' => $assistant_id,
+            'messages'     => array(
+                array('role' => 'user', 'content' => $user_message),
+            ),
+        )),
+    );
 
-// Send the request to Agentive API
-$response = wp_remote_post($api_url, $args);
+    // Send the request to Agentive API
+    $response = wp_remote_post($api_url, $args);
 
-if (is_wp_error($response)) {
-    error_log('Error communicating with Agentive API: ' . $response->get_error_message());
-    wp_send_json_error('Error communicating with the Agentive API.');
-} else {
-    $response_body = wp_remote_retrieve_body($response);
-    if (!$response_body) {
-        error_log('Empty response from Agentive API.');
-        wp_send_json_error('Empty response from the Agentive API.');
+    if (is_wp_error($response)) {
+        error_log('Error communicating with Agentive API: ' . $response->get_error_message());
+        wp_send_json_error('Error communicating with the Agentive API.');
     } else {
-        wp_send_json_success(json_decode($response_body));
+        $response_body = wp_remote_retrieve_body($response);
+        if (!$response_body) {
+            error_log('Empty response from Agentive API.');
+            wp_send_json_error('Empty response from the Agentive API.');
+        } else {
+            wp_send_json_success(json_decode($response_body));
+        }
     }
-}
-wp_die();
+    wp_die();
 }
 add_action('wp_ajax_vacw_get_bot_response', 'vacw_get_bot_response');
