@@ -8,14 +8,7 @@ Text Domain: customer-support-bot
 Domain Path: /languages
 */
 
-// Define Agentive API key and Assistant ID securely on the server-side
-if (!defined('AGENTIVE_API_KEY')) {
-    define('AGENTIVE_API_KEY', '664c990c-f470-4c0f-a67c-98056db461ae');
-}
-
-if (!defined('AGENTIVE_ASSISTANT_ID')) {
-    define('AGENTIVE_ASSISTANT_ID', '66ca9fa5-d934-4cf5-8dde-c73173b1a0cc');
-}
+// Store API keys in options table, not constants for security
 
 // Load text domain for translations
 function vacw_load_textdomain() {
@@ -49,7 +42,7 @@ function vacw_register_settings_page() {
         __('Chat Widget', 'customer-support-bot'),
         'manage_options',
         'vacw-settings',
-        'vacw_settings_page'  // Make sure the function exists
+        'vacw_settings_page'
     );
 }
 add_action('admin_menu', 'vacw_register_settings_page');
@@ -71,7 +64,7 @@ function vacw_settings_page() {
         <form method="post" action="options.php">
             <?php
                 settings_fields('vacw_settings_group');
-                do_settings_sections('vacw_settings_group');
+                do_settings_sections('vacw-settings'); // Correct page slug
                 submit_button();
             ?>
         </form>
@@ -84,7 +77,7 @@ function vacw_register_settings() {
     register_setting('vacw_settings_group', 'vacw_avatar_url', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_assistant_name', 'sanitize_text_field');
     register_setting('vacw_settings_group', 'vacw_openai_api_key', 'vacw_sanitize_and_encrypt_api_key');
-    register_setting('vacw_settings_group', 'vacw_bot_greeting', 'sanitize_text_field');  // Register bot greeting setting
+    register_setting('vacw_settings_group', 'vacw_bot_greeting', 'sanitize_text_field');  
 }
 add_action('admin_init', 'vacw_register_settings');
 
@@ -112,7 +105,7 @@ function vacw_get_decrypted_api_key() {
 function vacw_add_chat_widget() {
     try {
         echo '<div id="chatbot-container">';
-        include(plugin_dir_path(__FILE__) . 'assets/index.html');  // Ensure the path to index.html is correct
+        include(plugin_dir_path(__FILE__) . 'assets/index.html');  
         echo '</div>';
     } catch (Exception $e) {
         error_log('Error displaying chat widget: ' . $e->getMessage());
@@ -123,15 +116,14 @@ add_action('wp_footer', 'vacw_add_chat_widget');
 
 // Handle Agentive API session initialization
 function vacw_initialize_session() {
-    // Verify nonce for security
     check_ajax_referer('vacw_nonce_action', 'security');
 
-    // Check user capability
     if (!current_user_can('read')) {
         wp_send_json_error('Unauthorized user');
         wp_die();
     }
 
+    $api_url = 'https://agentivehub.com/api/chat/session';
     $api_url = 'https://agentivehub.com/api/chat/session';
     $api_key = AGENTIVE_API_KEY;
     $assistant_id = AGENTIVE_ASSISTANT_ID;
