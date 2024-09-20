@@ -38,13 +38,6 @@ function vacw_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
 
-// Enqueue the custom admin styles and scripts for the settings page
-function vacw_enqueue_admin_assets($hook) {
-    // Check if we are on the settings page for the chat widget
-    if ($hook != 'settings_page_vacw-settings') {
-        return;
-    }
-
  // Enqueue Bootstrap CSS and JS for admin settings page
 function vacw_enqueue_admin_assets($hook) {
     if ($hook != 'settings_page_vacw-settings') {
