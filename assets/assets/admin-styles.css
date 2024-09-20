@@ -12,3 +12,112 @@
 #wp-admin-bar-vacw_chat_widget_settings:hover {
     color: #00bcd4; /* Change color on hover */
 }
+
+/* General page styling */
+.wrap {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Header styling */
+.wrap h1 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 1.2px;
+    animation: fadeIn 1.2s ease;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 20px;
+    animation: fadeInUp 1s ease;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+/* Input fields styling */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 8px rgba(13, 110, 253, 0.2);
+}
+
+/* Buttons styling */
+button {
+    padding: 10px 15px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #004bca;
+    transform: translateY(-2px);
+}
+
+/* Avatar styling */
+#vacw-avatar-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+#vacw-avatar-preview:hover {
+    transform: scale(1.05);
+}
+
+/* Tooltips and descriptions */
+.form-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
