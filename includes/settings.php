@@ -1,7 +1,7 @@
 <div class="wrap">
     <h1 class="text-3xl font-bold mb-5"><?php _e('Customer Support Bot Settings', 'customer-support-bot'); ?></h1>
     
-    <!-- Include Tailwind CSS CDN -->
+    <!-- Include Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <form method="post" action="options.php" class="space-y-6">
@@ -41,4 +41,10 @@
         <!-- Bot Greeting Section -->
         <div class="mb-4">
             <label for="vacw_bot_greeting" class="block font-medium text-gray-700"><?php _e('Bot Greeting', 'customer-support-bot'); ?></label>
-            <input type="text" name="vacw_bot_greeting" id="vacw_bot_greeting" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="<?php echo esc_attr(get_option('vacw_bot
+            <input type="text" name="vacw_bot_greeting" id="vacw_bot_greeting" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="<?php echo esc_attr(get_option('vacw_bot_greeting', 'Hi! How can I assist you today?')); ?>" />
+            <p class="mt-2 text-sm text-gray-500"><?php _e('Enter the greeting message that the bot will display when it starts.', 'customer-support-bot'); ?></p>
+        </div>
+        
+        <?php submit_button(__('Save Changes', 'customer-support-bot'), 'button-primary'); ?>
+    </form>
+</div>
