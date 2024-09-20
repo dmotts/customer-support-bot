@@ -23,20 +23,29 @@ function vacw_load_textdomain() {
 }
 add_action('plugins_loaded', 'vacw_load_textdomain');
 
-// Enqueue scripts and styles for the front end
-function vacw_enqueue_scripts() {
-    $timestamp = time();
+// Enqueue frontend styles, scripts, and axios for the chatbot and Agentive API
+function vacw_enqueue_frontend_assets() {
+    $timestamp = time(); // Cache busting for updated versions
 
+    // Enqueue frontend styles for the chat widget
     wp_enqueue_style('vacw-style', plugins_url('assets/assets/style.css', __FILE__), array(), $timestamp);
+    
+    // Enqueue the chatbot script that controls the chat widget functionality
     wp_enqueue_script('vacw-script', plugins_url('assets/assets/script.js', __FILE__), array('jquery'), $timestamp, true);
+
+    // Enqueue Axios for Agentive API communication
+    wp_enqueue_script('vacw-axios', plugins_url('assets/assets/axios.min.js', __FILE__), array(), null, true);
+
+    // Pass PHP variables to JavaScript via wp_localize_script
+    $bot_greeting = get_option('vacw_bot_greeting', 'Hi! How can I assist you today?');
     wp_localize_script('vacw-script', 'vacw_settings', array(
-        'ajax_url'   => admin_url('admin-ajax.php'),
-        'avatar_url' => esc_url(get_option('vacw_avatar_url', plugins_url('assets/default-avatar.png', __FILE__))),
-        'bot_greeting' => __('Hi! How can I assist you today?', 'customer-support-bot'),
-        'security'   => wp_create_nonce('vacw_nonce_action'),
+        'ajax_url'   => admin_url('admin-ajax.php'),  // AJAX URL for bot response requests
+        'avatar_url' => esc_url(get_option('vacw_avatar_url', plugins_url('assets/default-avatar.png', __FILE__))),  // Avatar URL
+        'bot_greeting' => esc_html($bot_greeting),  // Greeting message
+        'security'   => wp_create_nonce('vacw_nonce_action'),  // Security nonce for AJAX requests
     ));
 }
-add_action('wp_enqueue_scripts', 'vacw_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'vacw_enqueue_frontend_assets');
 
 // Enqueue Bootstrap, custom CSS/JS, and WordPress media uploader for admin settings page
 function vacw_enqueue_admin_assets($hook) {
