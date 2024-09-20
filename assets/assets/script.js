@@ -1,8 +1,8 @@
 class Chatbot {
     constructor() {
         this.botLoadingDelay = 3000;
-        this.initialGreeting = "Hi! How can I assist you today?";
-        this.botAvatar = "https://res.cloudinary.com/dzpafdvkm/image/upload/v1725329022/Portfolio/logos/drupal.svg";
+        this.initialGreeting = vacw_settings.bot_greeting || "Hi! How can I assist you today?";
+        this.botAvatar = vacw_settings.avatar_url || "https://res.cloudinary.com/dzpafdvkm/image/upload/v1725329022/Portfolio/logos/drupal.svg";
         this.isRunning = false;
         this.session_id = this.getStoredSession() || this.initializeSession();
         this.setupEventListeners();
@@ -59,40 +59,54 @@ class Chatbot {
     }
 
     getStoredSession() {
-        return localStorage.getItem("session_id");
+        const sessionData = localStorage.getItem("session_data");
+        if (sessionData) {
+            const parsedData = JSON.parse(sessionData);
+            const now = Date.now();
+            // Expire session after 30 minutes
+            if (now - parsedData.timestamp < 1800000) {
+                return parsedData.session_id;
+            } else {
+                this.clearStoredSession();
+            }
+        }
+        return null;
     }
 
     storeSession(sessionId) {
-        localStorage.setItem("session_id", sessionId);
+        const sessionData = {
+            session_id: sessionId,
+            timestamp: Date.now()
+        };
+        localStorage.setItem("session_data", JSON.stringify(sessionData));
     }
 
     clearStoredSession() {
-        localStorage.removeItem("session_id");
+        localStorage.removeItem("session_data");
     }
 
     async initializeSession() {
         try {
-            const response = await axios.post('https://agentivehub.com/api/chat/session', {
-                api_key: "664c990c-f470-4c0f-a67c-98056db461ae",
-                assistant_id: "66ca9fa5-d934-4cf5-8dde-c73173b1a0cc"
+            const response = await axios.post(vacw_settings.ajax_url, {
+                action: 'vacw_api_proxy',
+                query: 'initialize_session',
+                lang: 'en',
+                security: vacw_settings.security
             });
+
             const sessionId = response.data.session_id;
             this.storeSession(sessionId);
             return sessionId;
         } catch (error) {
-            // console.error("Error initializing session:", error);
             this.appendMessage(`Error initializing session: ${error}`, "received");
-            // this.appendMessage("Error initializing chat session. Please try again later.", "received");
         }
     }
 
-    // Append loader (3 dots) with the bot avatar next to it
     appendLoader() {
         const messageBox = document.getElementById("message-box");
-        const div = document.createElement("div");  // Create a chat message div
-        div.className = "chat-message-div";         // Use the same class for messages
+        const div = document.createElement("div");
+        div.className = "chat-message-div";
 
-        // Create the avatar section
         const avatarDiv = document.createElement("div");
         avatarDiv.className = "avatar";
         const avatarImg = document.createElement("img");
@@ -101,11 +115,8 @@ class Chatbot {
         avatarImg.className = "avatar-img";
         avatarDiv.appendChild(avatarImg);
 
-        // Create loader message structure
         const loaderMessageDiv = document.createElement("div");
-        loaderMessageDiv.className = "chat-message-received"; // Same styling as bot's message
-
-        // Set up the loader content (3 dots)
+        loaderMessageDiv.className = "chat-message-received";
         loaderMessageDiv.innerHTML = `
             <span class="loader">
                 <span class="loader__dot"></span>
@@ -113,26 +124,21 @@ class Chatbot {
                 <span class="loader__dot"></span>
             </span>`;
 
-        // Append avatar and loader to the chat message div
         div.appendChild(avatarDiv);
         div.appendChild(loaderMessageDiv);
-
-        messageBox.appendChild(div);  // Append the message to the chatbox
-        messageBox.scrollTop = messageBox.scrollHeight;  // Scroll to the bottom
+        messageBox.appendChild(div);
+        messageBox.scrollTop = messageBox.scrollHeight;
     }
 
-    // Remove the loader after bot response is received
     removeLoader() {
-        const loaderDiv = document.querySelector(".chat-message-received .loader"); // Find loader in the message
-
+        const loaderDiv = document.querySelector(".chat-message-received .loader");
         if (loaderDiv) {
-            const parentDiv = loaderDiv.closest(".chat-message-div"); // Get parent message div
-            parentDiv.remove(); // Remove the entire message div containing the loader
+            const parentDiv = loaderDiv.closest(".chat-message-div");
+            parentDiv.remove();
         }
     }
 
-    // Append message to chatbox
-    appendMessage(msg, type, withLoader = true) {
+    appendMessage(msg, type) {
         const messageBox = document.getElementById("message-box");
         const div = document.createElement("div");
         div.className = "chat-message-div";
@@ -167,38 +173,33 @@ class Chatbot {
         }
     }
 
-    // Retrieve bot response and return it to the sendMessage function
     async getBotResponse(userMessage) {
         try {
-            console.log(`Session ID: ${this.session_id}`);
-            const response = await axios.post('https://agentivehub.com/api/chat', {
- api_key: "664c990c-f470-4c0f-a67c-98056db461ae",
- session_id: this.session_id,
- type: 'custom_code',
- assistant_id: "66ca9fa5-d934-4cf5-8dde-c73173b1a0cc",
- messages:[{ role: 'user',  content: userMessage  }],
- });
-console.log(`Chat response: ${JSON.stringify(response.data.content)}`);
+            const response = await axios.post(vacw_settings.ajax_url, {
+                action: 'vacw_api_proxy',
+                query: userMessage,
+                lang: 'en',
+                sessionId: this.session_id,
+                security: vacw_settings.security
+            });
 
-            const botReply = response.data.content;
-            this.removeLoader();  // Remove loader once bot response is retrieved
-            return botReply;      // Return the bot's response to be displayed
-
+            const botReply = response.data.data.content;
+            this.removeLoader();
+            return botReply;
         } catch (error) {
             console.error("Error getting bot response:", error);
-            this.removeLoader(); // Remove loader even if there's an error
-            return "There was an error processing your message. Please try again later.";  // Return error message
+            this.removeLoader();
+            return "There was an error processing your message. Please try again later.";
         }
     }
 
-    // Display the bot's response immediately after retrieval
     displayBotResponse() {
-        this.appendMessage(this.botMessage, "received"); // Append the bot's message to chat
-        this.isRunning = false;  // Reset the running status to allow new messages
+        this.appendMessage(this.botMessage, "received");
+        this.isRunning = false;
     }
 }
 
 // Initialize the chatbot when the page loads
 document.addEventListener("DOMContentLoaded", () => {
     new Chatbot();
-}); 
+});
