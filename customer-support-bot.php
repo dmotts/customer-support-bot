@@ -201,7 +201,7 @@ function vacw_initialize_session() {
         wp_send_json_error('Error initializing session');
     } else {
         $response_body = json_decode(wp_remote_retrieve_body($response), true);
-        $session_id = $response_body['session_id'] ?? null;
+        $session_id = $response_body['data']['session_id'] ?? null;
 
         if ($session_id) {
             wp_send_json_success(array('session_id' => $session_id));
