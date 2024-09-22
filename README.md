@@ -4,7 +4,7 @@ Customer Support Bot <br> <span>( Wordpress Plugin )</span>
 
 <div align="center">
 
-[![Live Demo](https://github.com/dmotts/customer-support-bot/actions/workflows/deploy.yml/badge.svg)](http://customer-support-bot.nichesite.org)
+[![Live Demo](https://github.com/dmotts/customer-support-bot/actions/workflows/deploy.yml/badge.svg)](https://shorturl.at/AZvWp)
 
 </div>
 
