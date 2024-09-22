@@ -2,6 +2,8 @@
 Customer Support Bot
 </h1>
 
+<h2>( Wordpress Plugin )</h2>
+
 <div align="center">
 
 [![Live Demo](https://github.com/dmotts/customer-support-bot/actions/workflows/deploy.yml/badge.svg)](http://customer-support-bot.nichesite.org)
