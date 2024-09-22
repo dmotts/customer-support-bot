@@ -1,4 +1,4 @@
-name: Deploy Plugin to Hosting
+name: Live Demo
 
 on:
   push:
