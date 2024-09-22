@@ -1,4 +1,5 @@
 # Customer Support Bot
+[![Live Demo](https://github.com/dmotts/customer-support-bot/actions/workflows/deploy.yml/badge.svg)](https://github.com/dmotts/customer-support-bot/actions/workflows/deploy.yml)
 
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
 
