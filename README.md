@@ -1,5 +1,5 @@
 <h1 align="center">
-Customer Support Bot <br> <span style="font-size:13px;">( Wordpress Plugin )</span>
+Customer Support Bot <br> <span style="font-size:11px;">( Wordpress Plugin )</span>
 </h1>
 
 
