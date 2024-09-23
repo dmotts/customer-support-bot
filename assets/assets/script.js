@@ -80,7 +80,7 @@ class Chatbot {
 
 const chatReponse = {
  api_key: "664c990c-f470-4c0f-a67c-98056db461ae",
- session_id,
+ session_id: this.session_id,
  type: 'custom_code',
  assistant_id: "66ca9fa5-d934-4cf5-8dde-c73173b1a0cc",
  messages:[{ role: 'user',  content: userMessage }],
