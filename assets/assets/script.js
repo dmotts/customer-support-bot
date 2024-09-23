@@ -67,14 +67,33 @@ class Chatbot {
     async getBotResponse(userMessage) {
         try {
             // Send the user's message and session ID to the backend for processing
+/*
             const response = await axios.post(vacw_settings.ajax_url, {
                 action: 'vacw_get_bot_response',   // The WordPress AJAX action to call
                 session_id: this.session_id,       // Include the session ID
                 message: userMessage,              // Include the user's message
                 security: vacw_settings.security   // Security nonce for the AJAX request
             });
+*/
 
-            const botReply = response.data.data.content;  // Get the bot's reply content from the response
+
+
+const chatReponse = {
+ api_key: "664c990c-f470-4c0f-a67c-98056db461ae",
+ session_id,
+ type: 'custom_code',
+ assistant_id: "66ca9fa5-d934-4cf5-8dde-c73173b1a0cc",
+ messages:[{ role: 'user',  content: userMessage }],
+ };
+
+const response = await axios.post(
+   'https://agentivehub.com/api/chat',
+ chatReponse
+ );
+  return chat.data;
+    
+
+            const botReply = response.data;  // Get the bot's reply content from the response
             this.removeLoader();  // Remove the loading indicator once the response is received
             return botReply;  // Return the bot's response for display
 
