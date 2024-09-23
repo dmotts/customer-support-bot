@@ -66,7 +66,7 @@ class Chatbot {
     // Retrieve the bot's response from the backend
     async getBotResponse(userMessage) {
         try {
-            // Het session Id from API
+            // Get session Id from API
             const sessionIdResponse = await axios.post(
    'https://agentivehub.com/api/chat/session',
  {
@@ -76,7 +76,8 @@ class Chatbot {
 )
 
             // Extract the session ID from the server's response
-            const sessionId = sessionIdResponse.data.session_id;
+            const session_id = sessionIdResponse.data.session_id;
+
             // Send the user's message and session ID to the backend for processing
 /*
             const response = await axios.post(vacw_settings.ajax_url, {
