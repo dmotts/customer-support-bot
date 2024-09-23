@@ -1,5 +1,5 @@
 <h1 align="center">
-Customer Support Bot <br> <span>( Wordpress Plugin )</span>
+Customer Support Bot <br> <span>( WordPress Plugin )</span>
 </h1>
 
 <div align="center">
@@ -10,6 +10,9 @@ Customer Support Bot <br> <span>( Wordpress Plugin )</span>
 
 
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
+
+
+
 
 <hr>
 
@@ -56,11 +59,7 @@ You can install the **Customer Support Bot** plugin in two ways:
 
 Alternatively, you can clone the repository using Git:
 
-1. Clone the repository:
-
-    ```
-    git clone https://github.com/dmotts/customer-support-bot.git
-    ```
+1. Clone the repository: `git clone https://github.com/dmotts/customer-support-bot.git`
 
 2. Navigate to your WordPress plugin directory (usually located at `/wp-content/plugins/`).
 
@@ -77,25 +76,9 @@ Alternatively, you can clone the repository using Git:
 To contribute:
 
 1. Fork the repository.
-
-2. Create a new branch for your feature:
-
-    ```
-    git checkout -b my-feature-branch
-    ```
-
-3. Make your changes and commit them:
-
-    ```
-    git commit -m 'Add some feature'
-    ```
-
-4. Push to the branch:
-
-    ```
-    git push origin my-feature-branch
-    ```
-
+2. Create a new branch: `git checkout -b my-feature-branch`.
+3. Make your changes and commit them: `git commit -m 'Add some feature'`.
+4. Push to the branch: `git push origin my-feature-branch`.
 5. Open a pull request.
 
 ***Please ensure your code follows the project's coding standards and includes tests where appropriate.***
