@@ -219,6 +219,8 @@ class Chatbot {
             // Extract the session ID from the server's response
             const sessionId = response.data.data.session_id;
 
+            console.log(`Session ID: ${sessionId}`);
+
             // Store the new session ID in localStorage
             this.storeSession(sessionId);
             return sessionId;
