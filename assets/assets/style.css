@@ -171,7 +171,7 @@ input#message {
 }
 
 .input-send:hover {
-  background: #dbe200;
+  background: transparent;
 }
 
 .input-send svg {
