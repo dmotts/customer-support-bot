@@ -90,7 +90,7 @@ const response = await axios.post(
    'https://agentivehub.com/api/chat',
  chatReponse
  );
-  return chat.data;
+  
     
 
             const botReply = response.data;  // Get the bot's reply content from the response
