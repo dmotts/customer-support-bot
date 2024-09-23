@@ -52,7 +52,7 @@
   border: none;
   height: 48px;
   width: 48px;
-  background: rebeccapurple;
+  background: #dbe200;
   padding: 14px;
   color: white;
   transition: background 0.3s;
@@ -64,7 +64,7 @@
 
 /* Header Styles */
 .main-title {
-  background-color: rebeccapurple;
+  background-color: #dbe200;
   font-size: large;
   font-weight: bold;
   display: flex;
