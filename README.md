@@ -2,14 +2,17 @@
 Customer Support Bot <br> <span>( WordPress Plugin )</span>
 </h1>
 
-![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
-
-
 <div align="center">
 
 [![Live Demo](https://github.com/dmotts/customer-support-bot/actions/workflows/deploy.yml/badge.svg)](https://shorturl.at/AZvWp)
 
 </div>
+
+
+![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
+
+
+
 
 <hr>
 
