@@ -212,12 +212,22 @@ class Chatbot {
         try {
             console.log(`About to call for session id`);
             // Call the backend to initialize a new session
-            
+            /*
             const response = await axios.post(vacw_settings.ajax_url, {
                 action: 'vacw_initialize_session',   // Specify the backend action to initialize session
                 security: vacw_settings.security     // Include security nonce for the request
             });
+            */
 
+            
+            const response = await axios.post(
+   'https://agentivehub.com/api/chat/session',
+ {
+    "api_key": "664c990c-f470-4c0f-a67c-98056db461ae",
+     "assistant_id": "66ca9fa5-d934-4cf5-8dde-c73173b1a0cc",
+    }
+)
+            
             // Extract the session ID from the server's response
             const sessionId = response; //.session_id;
 
