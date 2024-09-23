@@ -77,7 +77,7 @@ class Chatbot {
 */
 
 
-
+console.log(`This session id: ${this.session_id`});
 const chatReponse = {
  api_key: "664c990c-f470-4c0f-a67c-98056db461ae",
  session_id: this.session_id,
