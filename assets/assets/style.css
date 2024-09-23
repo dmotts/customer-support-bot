@@ -143,16 +143,18 @@
 }
 
 /* Input Area */
+
 .input-div {
   height: 48px;
   display: flex;
   align-items: center;
 }
 
-.input-message {
+#input-message {
   padding: 8px 48px 8px 16px;
   flex-grow: 1;
   border: none;
+  margin-left: 3px;
 }
 
 .input-message:focus {
