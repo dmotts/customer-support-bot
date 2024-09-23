@@ -212,13 +212,14 @@ class Chatbot {
         try {
             console.log(`About to call for session id`);
             // Call the backend to initialize a new session
+            
             const response = await axios.post(vacw_settings.ajax_url, {
                 action: 'vacw_initialize_session',   // Specify the backend action to initialize session
                 security: vacw_settings.security     // Include security nonce for the request
             });
 
             // Extract the session ID from the server's response
-            const sessionId = response.data.data.session_id;
+            const sessionId = response.session_id;
 
             console.log(`Session ID: ${sessionId}`);
 
