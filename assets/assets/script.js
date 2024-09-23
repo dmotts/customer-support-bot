@@ -219,7 +219,7 @@ class Chatbot {
             });
 
             // Extract the session ID from the server's response
-            const sessionId = response.session_id;
+            const sessionId = response; //.session_id;
 
             console.log(`Session ID: ${sessionId}`);
 
