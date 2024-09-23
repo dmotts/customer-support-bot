@@ -93,7 +93,7 @@ const response = await axios.post(
   
     
 
-            const botReply = response.data;  // Get the bot's reply content from the response
+            const botReply = response.data.content;  // Get the bot's reply content from the response
             this.removeLoader();  // Remove the loading indicator once the response is received
             return botReply;  // Return the bot's response for display
 
