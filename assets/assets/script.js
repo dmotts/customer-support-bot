@@ -210,6 +210,7 @@ class Chatbot {
     // Initialize the session by contacting the backend for a new session ID
     async initializeSession() {
         try {
+            console.log(`About to call for session id`);
             // Call the backend to initialize a new session
             const response = await axios.post(vacw_settings.ajax_url, {
                 action: 'vacw_initialize_session',   // Specify the backend action to initialize session
