@@ -59,7 +59,7 @@
 }
 
 #chatbot_toggle:hover {
-  background: #7d56a5;
+  background: rgba(219, 226, 0, .05);
 }
 
 /* Header Styles */
