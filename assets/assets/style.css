@@ -2,7 +2,7 @@
   margin: auto;
   font-size: x-large;
   font-family: Raleway, sans-serif;
-  color: rebeccapurple;
+  color: #dbe200;
 }
 
 /* Main Card Styles */
@@ -52,19 +52,19 @@
   border: none;
   height: 48px;
   width: 48px;
-  background: rebeccapurple;
+  background: #dbe200;
   padding: 14px;
   color: white;
   transition: background 0.3s;
 }
 
 #chatbot_toggle:hover {
-  background: #7d56a5;
+  background: rgba(219, 226, 0, .05);
 }
 
 /* Header Styles */
 .main-title {
-  background-color: rebeccapurple;
+  background-color: #dbe200;
   font-size: large;
   font-weight: bold;
   display: flex;
@@ -94,7 +94,7 @@
   flex-grow: 1;
   overflow-y: auto;
   border-radius: 8px;
-  padding: 16px;
+  padding: 8px 0px 0px 4px;
   display: flex;
   flex-direction: column;
 }
@@ -110,19 +110,19 @@
 .avatar {
   display: flex;
   align-items: center;
-  margin-right: 8px;
+  margin-right: 12px;
 }
 
 .avatar-img {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 38px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 /* Message Bubbles */
 .chat-message-sent {
-  background-color: lavender;
+  background-color: #dbe200;
   padding: 8px 16px;
   border-radius: 8px;
   color: black;
@@ -132,28 +132,30 @@
 }
 
 .chat-message-received {
-  background-color: lavender;
+  background-color: #dbe200;
   padding: 8px 16px;
   border-radius: 8px;
   color: black;
   margin-right: auto;
-  margin-left: 16px;
+  margin-left: 0;
   border-bottom-left-radius: 2px;
   animation: fadeIn 0.5s ease-in; /* Apply fade-in animation only for bot messages */
 }
 
 /* Input Area */
+
+input#message {
+  padding: 8px 48px 8px 16px;
+  flex-grow: 1;
+  border: none;
+  margin-left: 3px;
+}
+
 .input-div {
   height: 48px;
   display: flex;
   align-items: center;
-}
-
-.input-message {
-  padding: 8px 48px 8px 16px;
-  flex-grow: 1;
-  border: none;
-}
+}
 
 .input-message:focus {
   outline: none;
@@ -169,18 +171,18 @@
 }
 
 .input-send:hover {
-  background: lavender;
+  background: transparent;
 }
 
 .input-send svg {
-  fill: rebeccapurple;
+  fill: #dbe200;
   margin-left: -12px;
 }
 
 /* Divider Line */
 .line {
   height: 1px;
-  background-color: rebeccapurple;
+  background-color: #dbe200;
   width: 100%;
   opacity: 0.2;
 }

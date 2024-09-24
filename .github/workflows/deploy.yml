@@ -3,7 +3,7 @@ name: Live Demo
 on:
   push:
     branches:
-       - ui 
+       - agentive-fix
 
 jobs:
   deploy:
