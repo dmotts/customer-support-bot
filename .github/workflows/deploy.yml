@@ -3,7 +3,7 @@ name: Live Demo
 on:
   push:
     branches:
-       - theme-settings 
+       - chatgpt-response 
 
 jobs:
   deploy:
