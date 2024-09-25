@@ -76,12 +76,12 @@ function vacw_enqueue_admin_assets($hook) {
     // Enqueue custom admin styles and scripts
     wp_enqueue_style(
         'vacw-admin-styles',
-        plugins_url('assets/assets/admin-styles.css', __DIR__ . '/../')
+        plugins_url('assets/assets/admin-styles.css', __DIR__ . '/')
     );
 
     wp_enqueue_script(
         'vacw-admin-script',
-        plugins_url('assets/assets/admin-script.js', __DIR__ . '/../'),
+        plugins_url('assets/assets/admin-script.js', __DIR__ . '/'),
         array('jquery'),
         null,
         true
