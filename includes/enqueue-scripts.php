@@ -11,7 +11,7 @@ function vacw_enqueue_frontend_assets() {
     // Enqueue chatbot styles
     wp_enqueue_style(
         'vacw-style',
-        plugins_url('assets/assets/style.css', __DIR__ . '/../'),
+        plugins_url('assets/assets/style.css', __DIR__ . '/'),
         array(),
         $timestamp
     );
