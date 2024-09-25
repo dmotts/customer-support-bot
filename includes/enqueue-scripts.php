@@ -28,7 +28,7 @@ function vacw_enqueue_frontend_assets() {
     // Enqueue chatbot script
     wp_enqueue_script(
         'vacw-script',
-        plugins_url('assets/assets/script.js', __DIR__ . '/../'),
+        plugins_url('assets/assets/script.js', __DIR__ . '/'),
         array('jquery', 'axios'),
         $timestamp,
         true
