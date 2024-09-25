@@ -21,7 +21,6 @@ add_action('plugins_loaded', 'vacw_load_textdomain');
 
 // Include required files
 require_once plugin_dir_path(__FILE__) . 'includes/enqueue-scripts.php';
-require_once plugin_dir_path(__FILE__) . 'includes/enqueue-color-picker.php';
 require_once plugin_dir_path(__FILE__) . 'includes/chatbot-widget.php';
 require_once plugin_dir_path(__FILE__) . 'includes/settings-page.php';
 require_once plugin_dir_path(__FILE__) . 'includes/ajax-handlers.php';
