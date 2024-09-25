@@ -3,72 +3,58 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-?>
-<div class="wrap">
-    <h1 class="mb-4"><?php _e('Customer Support Bot Settings', 'customer-support-bot'); ?></h1>
 
-    <form method="post" action="options.php">
-        <?php
-        // Output security fields and settings sections
-        settings_fields('vacw_settings_group');
-        do_settings_sections('vacw_settings_group');
-        ?>
+// Display the plugin's settings page in the admin dashboard
+function vacw_settings_page() {
+    try {
+        include(plugin_dir_path(__DIR__) . 'includes/settings.php');
+    } catch (Exception $e) {
+        error_log('Error loading settings page: ' . $e->getMessage());
+        echo '<div>' . __('Error loading settings page. Please contact the administrator.', 'customer-support-bot') . '</div>';
+    }
+}
 
-        <!-- Avatar Upload Section -->
-        <div class="mb-3">
-            <label for="vacw_avatar_url" class="form-label">
-                <?php _e('Avatar Image', 'customer-support-bot'); ?>
-            </label>
-            <div class="d-flex align-items-center">
-                <!-- Display the current avatar or a default one -->
-                <img id="vacw-avatar-preview"
-                     src="<?php echo esc_url(get_option('vacw_avatar_url', plugins_url('assets/default-avatar.png', __DIR__ . '/../'))); ?>"
-                     class="rounded-circle me-3"
-                     style="width: 80px; height: 80px;" />
-                <!-- Button to open the media uploader -->
-                <button type="button" id="vacw-avatar-upload-button" class="btn btn-primary">
-                    <?php _e('Upload Image', 'customer-support-bot'); ?>
-                </button>
-            </div>
-            <!-- Hidden input to store the avatar URL -->
-            <input type="hidden" id="vacw-avatar-url" name="vacw_avatar_url"
-                   value="<?php echo esc_attr(get_option('vacw_avatar_url')); ?>" />
-        </div>
+// Register the settings page under the "Settings" menu
+function vacw_register_settings_page() {
+    add_options_page(
+        __('Chat Widget Settings', 'customer-support-bot'),
+        __('Chat Widget', 'customer-support-bot'),
+        'manage_options',
+        'vacw-settings',
+        'vacw_settings_page'
+    );
+}
+add_action('admin_menu', 'vacw_register_settings_page');
 
-        <!-- Assistant Name Section -->
-        <div class="mb-3">
-            <label for="vacw_assistant_name" class="form-label">
-                <?php _e('Assistant Name', 'customer-support-bot'); ?>
-            </label>
-            <input type="text" name="vacw_assistant_name" id="vacw_assistant_name" class="form-control"
-                   value="<?php echo esc_attr(get_option('vacw_assistant_name', 'Customer Support Bot')); ?>" />
-        </div>
+// Register plugin settings
+function vacw_register_settings() {
+    register_setting(
+        'vacw_settings_group',
+        'vacw_avatar_url',
+        'sanitize_text_field'
+    );
 
-        <!-- OpenAI API Key Section -->
-        <div class="mb-3">
-            <label for="vacw_openai_api_key" class="form-label">
-                <?php _e('OpenAI API Key', 'customer-support-bot'); ?>
-            </label>
-            <input type="password" name="vacw_openai_api_key" id="vacw_openai_api_key" class="form-control"
-                   value="<?php echo esc_attr(get_option('vacw_openai_api_key')); ?>" />
-            <p class="form-text text-muted">
-                <?php _e('Enter your OpenAI API key. This key will be used to communicate with the OpenAI API.', 'customer-support-bot'); ?>
-            </p>
-        </div>
+    register_setting(
+        'vacw_settings_group',
+        'vacw_assistant_name',
+        'sanitize_text_field'
+    );
 
-        <!-- Bot Greeting Section -->
-        <div class="mb-3">
-            <label for="vacw_bot_greeting" class="form-label">
-                <?php _e('Bot Greeting', 'customer-support-bot'); ?>
-            </label>
-            <input type="text" name="vacw_bot_greeting" id="vacw_bot_greeting" class="form-control"
-                   value="<?php echo esc_attr(get_option('vacw_bot_greeting', __('Hi! How can I assist you today?', 'customer-support-bot'))); ?>" />
-            <p class="form-text text-muted">
-                <?php _e('Enter the greeting message that the bot will display when it starts.', 'customer-support-bot'); ?>
-            </p>
-        </div>
+    register_setting(
+        'vacw_settings_group',
+        'vacw_openai_api_key',
+        'vacw_sanitize_api_key'
+    );
 
-        <!-- Save Button -->
-        <?php submit_button(__('Save Changes', 'customer-support-bot'), 'btn btn-primary'); ?>
-    </form>
-</div>
+    register_setting(
+        'vacw_settings_group',
+        'vacw_bot_greeting',
+        'sanitize_text_field'
+    );
+}
+add_action('admin_init', 'vacw_register_settings');
+
+// Sanitize the OpenAI API key input
+function vacw_sanitize_api_key($api_key) {
+    return sanitize_text_field($api_key);
+}
