@@ -30,7 +30,7 @@ function vacw_get_bot_response() {
             'Authorization' => 'Bearer ' . $api_key,
         ),
         'body'    => json_encode(array(
-            'model'         => 'gpt-3.5-turbo-0613',
+            'model'         => 'gpt-4o-mini',
             'messages'      => array(
                 array('role' => 'system', 'content' => $prompt['system']),
                 array('role' => 'user', 'content' => $prompt['user']),
