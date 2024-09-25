@@ -63,6 +63,8 @@ class Chatbot {
 
             this.removeLoader(); // Remove the loading indicator after getting the response
 
+           console.log(`Response: ${response}`);
+
             if (response.data.success) {
                 this.appendMessage(response.data.data.content, 'received'); // Display the bot's response
             } else {
