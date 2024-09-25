@@ -94,7 +94,7 @@ function vacw_enqueue_admin_assets($hook) {
     // Add a custom script to initialize the color picker
     wp_enqueue_script(
         'vacw-color-picker-script',
-        plugins_url('assets/admin-color-picker.js', __DIR__ . '/../'),
+        plugins_url('assets/assets/admin-color-picker.js', __DIR__ . '/../'),
         array('wp-color-picker'),
         false,
         true
