@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 function vacw_add_chat_widget() {
     try {
         echo '<div id="chatbot-container">';
-        // Include the chatbot's PHP file to allow processing of PHP code
+        // Include the chatbot's HTML
         include(plugin_dir_path(__DIR__) . 'assets/index.php');
         echo '</div>';
     } catch (Exception $e) {
