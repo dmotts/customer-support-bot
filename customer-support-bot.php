@@ -26,3 +26,4 @@ require_once plugin_dir_path(__FILE__) . 'includes/settings-page.php';
 require_once plugin_dir_path(__FILE__) . 'includes/ajax-handlers.php';
 require_once plugin_dir_path(__FILE__) . 'includes/prompt-builder.php';
 require_once plugin_dir_path(__FILE__) . 'includes/function-handlers.php';
+require_once plugin_dir_path(__FILE__) . 'includes/frontend-custom-css.php';

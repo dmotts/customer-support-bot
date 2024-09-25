@@ -50,7 +50,7 @@ function vacw_enqueue_frontend_assets() {
 }
 add_action('wp_enqueue_scripts', 'vacw_enqueue_frontend_assets');
 
-// Enqueue admin styles and scripts
+// Enqueue admin styles and scripts, including the color picker for the settings page
 function vacw_enqueue_admin_assets($hook) {
     if ($hook != 'settings_page_vacw-settings') {
         return;
@@ -84,6 +84,19 @@ function vacw_enqueue_admin_assets($hook) {
         plugins_url('assets/assets/admin-script.js', __DIR__ . '/../'),
         array('jquery'),
         null,
+        true
+    );
+
+    // Enqueue the WordPress color picker script and style
+    wp_enqueue_style('wp-color-picker');
+    wp_enqueue_script('wp-color-picker');
+
+    // Add a custom script to initialize the color picker
+    wp_enqueue_script(
+        'vacw-color-picker-script',
+        plugins_url('assets/assets/admin-color-picker.js', __DIR__ . '/'),
+        array('wp-color-picker'),
+        false,
         true
     );
 }
