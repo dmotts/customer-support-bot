@@ -7,7 +7,8 @@ if (!defined('ABSPATH')) {
 // Display the plugin's settings page in the admin dashboard
 function vacw_settings_page() {
     try {
-        include(plugin_dir_path(__DIR__) . 'includes/settings.php');
+        // Include the settings.php file
+        include(plugin_dir_path(__FILE__) . 'settings.php');
     } catch (Exception $e) {
         error_log('Error loading settings page: ' . $e->getMessage());
         echo '<div>' . __('Error loading settings page. Please contact the administrator.', 'customer-support-bot') . '</div>';
@@ -43,7 +44,7 @@ function vacw_register_settings() {
     register_setting(
         'vacw_settings_group',
         'vacw_openai_api_key',
-        'vacw_sanitize_api_key'
+        'sanitize_text_field'
     );
 
     register_setting(
@@ -53,8 +54,3 @@ function vacw_register_settings() {
     );
 }
 add_action('admin_init', 'vacw_register_settings');
-
-// Sanitize the OpenAI API key input
-function vacw_sanitize_api_key($api_key) {
-    return sanitize_text_field($api_key);
-}
