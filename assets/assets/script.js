@@ -5,30 +5,24 @@ if (typeof axios === 'undefined') {
 
 class Chatbot {
     constructor() {
-        // Retrieve settings from the localized script data
         this.botAvatar = vacw_settings.avatar_url || 'default-avatar.png'; // Bot avatar from plugin settings
         this.botGreeting = vacw_settings.bot_greeting || 'Hi! How can I assist you today?'; // Bot greeting from settings
         this.ajaxUrl = vacw_settings.ajax_url; // URL for handling AJAX requests
         this.securityNonce = vacw_settings.security; // Security nonce for AJAX requests
-
         this.isRunning = false; // Flag to prevent multiple simultaneous requests
         this.setupEventListeners(); // Initialize event listeners for user interaction
     }
 
     // Set up event listeners for user actions
     setupEventListeners() {
-        // Listen for "Enter" key press in the message input field
         document.getElementById('message').addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault(); 
                 this.sendMessage(); // Trigger message sending
             }
         });
 
-        // Toggle chatbot visibility when the toggle button is clicked
         document.getElementById('chatbot_toggle').onclick = this.toggleChatbot.bind(this);
-
-        // Send message when the "Send" button is clicked
         document.querySelector('.input-send').onclick = this.sendMessage.bind(this);
     }
 
@@ -38,15 +32,11 @@ class Chatbot {
         const toggleButton = document.getElementById('chatbot_toggle');
 
         if (chatbot.classList.contains('collapsed')) {
-            // Open the chatbot
             chatbot.classList.remove('collapsed');
-            toggleButton.children[0].style.display = 'none'; // Hide open icon
-            toggleButton.children[1].style.display = '';     // Show close icon
-
-            // Display the bot's greeting message after a short delay
-            setTimeout(() => this.appendMessage(this.botGreeting, 'received'), 1000);
+            toggleButton.children[0].style.display = 'none'; 
+            toggleButton.children[1].style.display = '';     
+            setTimeout(() => this.appendMessage(this.botGreeting, 'received'), 1000); // Display greeting after a short delay
         } else {
-            // Close the chatbot
             chatbot.classList.add('collapsed');
             toggleButton.children[0].style.display = '';     // Show open icon
             toggleButton.children[1].style.display = 'none'; // Hide close icon
@@ -57,7 +47,6 @@ class Chatbot {
     async sendMessage() {
         if (this.isRunning) return; // Prevent multiple requests
 
-        // Get the user's message and trim any whitespace
         const userMessage = document.getElementById('message').value.trim();
         if (!userMessage) return; // Do nothing if the message is empty
 
@@ -66,7 +55,6 @@ class Chatbot {
         this.appendLoader(); // Show a loading indicator while waiting for the bot's response
 
         try {
-            // Send the user's message to the backend via AJAX
             const response = await axios.post(this.ajaxUrl, {
                 action: 'vacw_get_bot_response', // Backend action hook
                 message: userMessage,            // User's message
@@ -76,14 +64,11 @@ class Chatbot {
             this.removeLoader(); // Remove the loading indicator after getting the response
 
             if (response.data.success) {
-                // Display the bot's response
-                this.appendMessage(response.data.data.content, 'received');
+                this.appendMessage(response.data.data.content, 'received'); // Display the bot's response
             } else {
-                // Display an error message if the request fails
-                this.appendMessage('Sorry, there was an error processing your request.', 'received');
+                this.appendMessage('Sorry, there was an error processing your request.', 'received'); // Display error message
             }
         } catch (error) {
-            // Handle any errors that occur during the request
             console.error('Error:', error);
             this.removeLoader();
             this.appendMessage('Sorry, there was an error processing your request.', 'received');
@@ -127,7 +112,6 @@ class Chatbot {
             messageDiv.style.opacity = '1';
         }, 50); // Short delay to trigger the transition
 
-        // Clear the message input field if it's a sent message
         if (type === 'sent') {
             document.getElementById('message').value = ''; // Clear the input field
         }
@@ -157,8 +141,7 @@ class Chatbot {
                 <span class="loader__dot"></span>
                 <span class="loader__dot"></span>
             </span>`;  // Loader animation HTML
-
-        // Append the avatar and loader to the message div
+    // Append the avatar and loader to the message div
         div.appendChild(avatarDiv);
         div.appendChild(loaderMessageDiv);
 
