@@ -12,8 +12,6 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
 
 
-
-
 <hr>
 
 Customer Support Bot is a WordPress plugin that allows businesses to automate customer support using AI technology. The bot provides various features such as knowledge base searches, appointment scheduling, and much more to enhance user experience and reduce the workload of customer support agents.
@@ -32,16 +30,18 @@ Customer Support Bot is a WordPress plugin that allows businesses to automate cu
 - **Knowledge Base Searches**: Retrieve helpful articles from a predefined knowledge base.
 - **Appointment Scheduling**: Allow users to schedule appointments through the bot.
 - **Customization Settings**: Customize bot appearance and settings in the WordPress admin panel.
-- **Ticket Categorization**: Automatically sort incoming support tickets into different categories. *(Future Implementation)*
-- **Basic Troubleshooting**: Provide users with automated solutions for common problems. *(Future Implementation)*
-- **Status Updates**: Notify users of ticket status and resolution progress. *(Future Implementation)*
-- **Password Resets**: Allow users to reset their passwords through the bot. *(Future Implementation)*
-- **Billing Inquiries**: Help users resolve billing-related questions and issues. *(Future Implementation)*
-- **Product Information**: Provide detailed information on products. *(Future Implementation)*
-- **Return/Refund Processing**: Guide users through the process of returning items or requesting refunds. *(Future Implementation)*
-- **Escalation Management**: Automatically escalate unresolved issues to human support agents. *(Future Implementation)*
-- **Satisfaction Surveys**: Gather feedback from users about their support experience. *(Future Implementation)*
-- **Multi-language Support**: Offer support in multiple languages. *(Future Implementation)*
+
+## To Do
+- [ ] **Ticket Categorization**: Automatically sort incoming support tickets into different categories. 
+- [ ] **Basic Troubleshooting**: Provide users with automated solutions for common problems.
+- [ ] **Status Updates**: Notify users of ticket status and resolution progress.
+- [ ] **Password Resets**: Allow users to reset their passwords through the bot.
+- [ ] **Billing Inquiries**: Help users resolve billing-related questions and issues.
+- [ ] **Product Information**: Provide detailed information on products.
+- [ ] **Return/Refund Processing**: Guide users through the process of returning items or requesting refunds.
+- [ ] **Escalation Management**: Automatically escalate unresolved issues to human support agents.
+- [ ] **Satisfaction Surveys**: Gather feedback from users about their support experience.
+- [ ] **Multi-language Support**: Offer support in multiple languages.
 
 ## Installation
 

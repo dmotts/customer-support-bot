@@ -34,9 +34,7 @@ function vacw_get_bot_response() {
             'messages'      => array(
                 array('role' => 'system', 'content' => $prompt['system']),
                 array('role' => 'user', 'content' => $prompt['user']),
-            ),
-            'functions'     => $prompt['functions'],
-            'function_call' => 'auto',
+            )         
         )),
         'timeout' => 30,
     );

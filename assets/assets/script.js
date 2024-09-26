@@ -5,6 +5,7 @@ if (typeof axios === 'undefined') {
 
 class Chatbot {
     constructor() {
+        // Fetch bot settings and security nonce from localized script variables (vacw_settings)
         this.botAvatar = vacw_settings.avatar_url || 'default-avatar.png'; // Bot avatar from plugin settings
         this.botGreeting = vacw_settings.bot_greeting || 'Hi! How can I assist you today?'; // Bot greeting from settings
         this.ajaxUrl = vacw_settings.ajax_url; // URL for handling AJAX requests
@@ -15,14 +16,17 @@ class Chatbot {
 
     // Set up event listeners for user actions
     setupEventListeners() {
+        // Trigger sending a message when the user presses 'Enter'
         document.getElementById('message').addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
-                event.preventDefault(); 
+                event.preventDefault();
                 this.sendMessage(); // Trigger message sending
             }
         });
 
+        // Toggle the chatbot visibility (open/close)
         document.getElementById('chatbot_toggle').onclick = this.toggleChatbot.bind(this);
+        // Send the message when the user clicks on the send button
         document.querySelector('.input-send').onclick = this.sendMessage.bind(this);
     }
 
@@ -33,8 +37,8 @@ class Chatbot {
 
         if (chatbot.classList.contains('collapsed')) {
             chatbot.classList.remove('collapsed');
-            toggleButton.children[0].style.display = 'none'; 
-            toggleButton.children[1].style.display = '';     
+            toggleButton.children[0].style.display = 'none';
+            toggleButton.children[1].style.display = '';
             setTimeout(() => this.appendMessage(this.botGreeting, 'received'), 1000); // Display greeting after a short delay
         } else {
             chatbot.classList.add('collapsed');
@@ -55,6 +59,7 @@ class Chatbot {
         this.appendLoader(); // Show a loading indicator while waiting for the bot's response
 
         try {
+            // Send a POST request to the backend using Axios
             const response = await axios.post(this.ajaxUrl, {
                 action: 'vacw_get_bot_response', // Backend action hook
                 message: userMessage,            // User's message
@@ -63,15 +68,13 @@ class Chatbot {
 
             this.removeLoader(); // Remove the loading indicator after getting the response
 
-           console.log(`Response: ${response}`);
-
             if (response.data.success) {
                 this.appendMessage(response.data.data.content, 'received'); // Display the bot's response
             } else {
                 this.appendMessage('Sorry, there was an error processing your request.', 'received'); // Display error message
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error Details:', error.response ? error.response : error.message); // Better error logging
             this.removeLoader();
             this.appendMessage('Sorry, there was an error processing your request.', 'received');
         }
@@ -115,7 +118,7 @@ class Chatbot {
         }, 50); // Short delay to trigger the transition
 
         if (type === 'sent') {
-            document.getElementById('message').value = ''; // Clear the input field
+            document.getElementById('message').value = ''; // Clear the input field after sending the message
         }
     }
 
@@ -143,7 +146,7 @@ class Chatbot {
                 <span class="loader__dot"></span>
                 <span class="loader__dot"></span>
             </span>`;  // Loader animation HTML
-    // Append the avatar and loader to the message div
+        // Append the avatar and loader to the message div
         div.appendChild(avatarDiv);
         div.appendChild(loaderMessageDiv);
 

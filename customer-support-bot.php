@@ -2,7 +2,7 @@
 /*
 Plugin Name: Customer Support Bot
 Description: A WordPress plugin that provides an AI-powered customer support chatbot with appointment scheduling capabilities.
-Version: 0.2.1
+Version: 0.2.2
 Author: Admin
 Text Domain: customer-support-bot
 Domain Path: /languages
