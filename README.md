@@ -23,7 +23,6 @@ Customer Support Bot is a WordPress plugin that allows businesses to automate cu
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Frontend logic for chatbot interaction.
 - [Axios](https://axios-http.com/docs/intro) – Promise-based HTTP client used to interact with the Agentive API for AI communication.
 - [Bootstrap](https://getbootstrap.com/) – Frontend CSS framework for styling the admin settings page.
-- [Agentive API](https://agentivehub.com) – API for the chatbot functionality, managing user sessions and responses.
 
 ## Features
 
