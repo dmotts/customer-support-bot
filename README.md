@@ -92,6 +92,6 @@ To contribute:
 ## Let's Connect 🤝
 
 <p> If you liked this project and would like see more features or show your support.</p>
-Feel free to reach out the developer(s) and give this project a ⭐!
+Feel free to reach out to the developer(s) and give this project a ⭐!
 
 
