@@ -12,7 +12,7 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
  
 </p>
 
-<p>👉<a href="#">Learn How To Contribute</a>👈</p>
+<p align="center"><a href="#">Learn How To Contribute</a></p>
 
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
 
