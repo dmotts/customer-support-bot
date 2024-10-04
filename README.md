@@ -89,7 +89,7 @@ To contribute:
 
 ***Please ensure your code follows the project's coding standards and includes tests where appropriate.***
 
-## Contributors 
+## Contributors 🌟
 
 [Daley Mottley (dmotts)](https://github.com/dmotts)
 
