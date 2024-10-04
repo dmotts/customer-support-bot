@@ -12,7 +12,7 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
  
 </p>
 
-<p align="center">[Contributing Guidelines & Code of Conduct](READ_BEFORE_CONTROBUTING)</p>
+<p align="center">[Contributing Guidelines & Code of Conduct](READ_BEFORE_CONTROBUTING.md)</p>
  <hr>
  
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
