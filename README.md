@@ -2,13 +2,19 @@
 Customer Support Bot <br> <span>( WordPress Plugin )</span>
 </h1>
 
-<div align="center">
 
-[![Live Demo](https://github.com/dmotts/customer-support-bot/actions/workflows/deploy.yml/badge.svg)](https://shorturl.at/AZvWp)
+<p align="center">
+<a href="https://github.com/dmotts/customer-support-bot/issues/new/choose">Request Feature</a>
+     ·
+    <a href="https://shorturl.at/AZvWp" target="blank">View Demo</a>
+    ·
+    <a href="https://github.com/dmotts/customer-support-bot/issues/new/choose">Report Bug</a>
+ 
+</p>
 
-</div>
-
-
+<p align="center"><a href="https://github.com/dmotts/customer-support-bot/blob/main/READ_BEFORE_CONTRIBUTING.md">Contributing Guidelines & Code of Conduct</a></p>
+ <hr>
+ 
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
 
 
@@ -23,7 +29,7 @@ Customer Support Bot is a WordPress plugin that allows businesses to automate cu
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Frontend logic for chatbot interaction.
 - [Axios](https://axios-http.com/docs/intro) – Promise-based HTTP client used to interact with the Agentive API for AI communication.
 - [Bootstrap](https://getbootstrap.com/) – Frontend CSS framework for styling the admin settings page.
-- [Agentive API](https://agentivehub.com) – API for the chatbot functionality, managing user sessions and responses.
+- <a href="https://beta.openai.com/docs/" target="_blank">OpenAI API</a> – An interface for integrating AI capabilities, enabling advanced natural language processing and generation features.
 
 ## Features
 
@@ -83,9 +89,13 @@ To contribute:
 
 ***Please ensure your code follows the project's coding standards and includes tests where appropriate.***
 
+## Contributors 
+
+[Daley Mottley (dmotts)](https://github.com/dmotts)
+
 ## Let's Connect 🤝
 
-If you find this project useful, please consider connecting with me on GitHub:
+<p> If you liked this project and would like to see more features or show your support.</p>
+Feel free to reach out to the developer(s) and give this project a ⭐!
 
-- [Daley Mottley (dmotts)](https://github.com/dmotts)
 
