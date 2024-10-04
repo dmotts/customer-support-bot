@@ -6,7 +6,7 @@
    - [Development Workflow](#development-workflow)
    - [Issue Report Process](#issue-report-process)
    - [Pull Request Process](#pull-request-process-)
-4. [Setting Up on your machine](#setting-up-on-your-machine-)
+4. [Installation](#setting-up-on-your-machine-)
 5. [Resources for Beginners](#resources-for-beginners-)
    - [Basics of Git and GitHub](#basics-of-git-and-github-)
 6. [Documentation](#documentation-)
@@ -30,40 +30,7 @@ The project is built using the following technologies:
 
 ## Contributing 📝
 Raise and issue; Get assigned and then work on fixing the issue.
-We welcome contributions to AgroTech AI! Follow these steps to contribute:
-
-1. **Fork the Repository**: Create your own copy of the repository on your GitHub account.
-![image](<img width="923" alt="image" src="https://github.com/user-attachments/assets/ffe4f7fc-5645-486d-9e3e-5322518fb4a4">
-)
-
-
-2. **Clone the Repository** : Clone the repository for making commits.
-   ```bash
-
-   git clone https://github.com/manikumarreddyu/AgroTech-AI.git
-   ```
-      <br>
-
-![image](<img width="293" alt="image" src="https://github.com/user-attachments/assets/fbb33407-766b-46dc-b583-6d86263f6bec">
-)
-
-
-
-3. **Create a New Branch** for your feature or bug fix: Make a separate branch to work on specific features or fixes and switch to the correct branch.
-```bash
-git checkout -b <new-branch-name>
-```
-4. **Make Changes** and commit them: Implement your changes and save them with a descriptive commit message.
-```bash
-git add .
-git commit -m "Describe your changes"
-```
-5. **Push Your Changes** to your fork: Upload your committed changes to your GitHub fork.
-   ```bash
-   git push origin <branch_name>
-   ```
-6. **Create a Pull Request ✅**: Propose your changes to be merged into the original repository.
-   <br>
+We welcome contributions to Customer Support Bot! Follow these steps to contribute:
 
 
 ![image](<img width="935" alt="image" src="https://github.com/user-attachments/assets/3e7cb6f7-6898-4440-9ce5-b8feaafb0aa5">
