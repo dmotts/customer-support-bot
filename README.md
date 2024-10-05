@@ -108,6 +108,7 @@ If you encounter any issues or have questions, feel free to [open an issue](http
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+<!--
 <h2 align="center">✨ Contributors ✨ </h2>
 
 <div align="center">
@@ -115,7 +116,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 </div>
 
 <h2 align="center"> 🌟 Supporters 🌟 </h2>
-
+-->
 <h2 align="center"> 🌎 Let's Stay Connected 🤝 </h2>
 
 <p align="center"> If you like this project and would like to see more features or show your support.</p>
