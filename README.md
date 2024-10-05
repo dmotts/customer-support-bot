@@ -18,7 +18,8 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
 
 
-<hr>
+</hr>
+
 ## Overview
 
 **Customer Support Bot** is a WordPress plugin that enables businesses to automate customer support using AI technology. The bot offers features like knowledge base searches, appointment scheduling, and more to enhance user experience and reduce the workload on customer support agents.
