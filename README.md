@@ -19,17 +19,23 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
 
 
 <hr>
+## Overview
 
-Customer Support Bot is a WordPress plugin that allows businesses to automate customer support using AI technology. The bot provides various features such as knowledge base searches, appointment scheduling, and much more to enhance user experience and reduce the workload of customer support agents.
+**Customer Support Bot** is a WordPress plugin that enables businesses to automate customer support using AI technology. The bot offers features like knowledge base searches, appointment scheduling, and more to enhance user experience and reduce the workload on customer support agents.
 
-## Technologies Used
+## Table of Contents
 
-- [WordPress](https://wordpress.org/) – CMS platform where the plugin is installed and activated.
-- [PHP](https://www.php.net/) – Server-side language used to handle API interactions and WordPress plugin development.
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Frontend logic for chatbot interaction.
-- [Axios](https://axios-http.com/docs/intro) – Promise-based HTTP client used to interact with the Agentive API for AI communication.
-- [Bootstrap](https://getbootstrap.com/) – Frontend CSS framework for styling the admin settings page.
-- <a href="https://beta.openai.com/docs/" target="_blank">OpenAI API</a> – An interface for integrating AI capabilities, enabling advanced natural language processing and generation features.
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+  - [Download from GitHub](#1-download-from-github)
+  - [Clone the Repository](#2-clone-the-repository)
+- [Contributions](#contributions)
+- [To-Do List](#to-do-list)
+- [Support](#support)
+- [Contributors](#contributors)
+- [License](#license)
+- [Let's Stay Connected](#lets-stay-connected)
 
 ## Features
 
@@ -37,17 +43,14 @@ Customer Support Bot is a WordPress plugin that allows businesses to automate cu
 - **Appointment Scheduling**: Allow users to schedule appointments through the bot.
 - **Customization Settings**: Customize bot appearance and settings in the WordPress admin panel.
 
-## To Do
-- [ ] **Ticket Categorization**: Automatically sort incoming support tickets into different categories. 
-- [ ] **Basic Troubleshooting**: Provide users with automated solutions for common problems.
-- [ ] **Status Updates**: Notify users of ticket status and resolution progress.
-- [ ] **Password Resets**: Allow users to reset their passwords through the bot.
-- [ ] **Billing Inquiries**: Help users resolve billing-related questions and issues.
-- [ ] **Product Information**: Provide detailed information on products.
-- [ ] **Return/Refund Processing**: Guide users through the process of returning items or requesting refunds.
-- [ ] **Escalation Management**: Automatically escalate unresolved issues to human support agents.
-- [ ] **Satisfaction Surveys**: Gather feedback from users about their support experience.
-- [ ] **Multi-language Support**: Offer support in multiple languages.
+## Technologies Used
+
+- [WordPress](https://wordpress.org/) – CMS platform where the plugin is installed and activated.
+- [PHP](https://www.php.net/) – Server-side language for API interactions and WordPress plugin development.
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Frontend logic for chatbot interaction.
+- [Axios](https://axios-http.com/docs/intro) – HTTP client for interacting with the Agentive API.
+- [Bootstrap](https://getbootstrap.com/) – CSS framework for styling the admin settings page.
+- [OpenAI API](https://beta.openai.com/docs/) – Integrates AI capabilities for advanced NLP features.
 
 ## Installation
 
@@ -79,15 +82,37 @@ Alternatively, you can clone the repository using Git:
 
 ## Contributions
 
-To contribute:
+We welcome and appreciate contributions to the **Customer Support Bot** project! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
 
-1. Fork the repository.
-2. Create a new branch: `git checkout -b my-feature-branch`.
-3. Make your changes and commit them: `git commit -m 'Add some feature'`.
-4. Push to the branch: `git push origin my-feature-branch`.
-5. Open a pull request.
+Thank you for your support!
 
-***Please ensure your code follows the project's coding standards and includes tests where appropriate.***
+## To-Do List
+
+- [ ] **Ticket Categorization**: Automatically sort incoming support tickets into different categories.
+- [ ] **Basic Troubleshooting**: Provide users with automated solutions for common problems.
+- [ ] **Status Updates**: Notify users of ticket status and resolution progress.
+- [ ] **Password Resets**: Allow users to reset their passwords through the bot.
+- [ ] **Billing Inquiries**: Help users resolve billing-related questions and issues.
+- [ ] **Product Information**: Provide detailed information on products.
+- [ ] **Return/Refund Processing**: Guide users through the process of returns or refunds.
+- [ ] **Escalation Management**: Automatically escalate unresolved issues to human support agents.
+- [ ] **Satisfaction Surveys**: Gather feedback from users about their support experience.
+- [ ] **Multi-language Support**: Offer support in multiple languages.
+
+## Support
+
+If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new/choose) or reach out to the maintainers.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributors
+
+We'd like to thank all the contributors who have helped make this project better:
+
+- [Daley Mottley (dmotts)](https://github.com/dmotts)
+
 
 <h2 align="center">✨ Contributors ✨ </h2>
 
@@ -99,7 +124,7 @@ To contribute:
 
 <h2 align="center"> 🌎 Let's Stay Connected 🤝 </h2>
 
-<p align="center"> If you liked this project and would like to see more features or show your support.</p>
+<p align="center"> If you like this project and would like to see more features or show your support.</p>
 <p align="center"> Feel free to reach out to the developer(s) and give this project a ⭐!</p>
 
 
