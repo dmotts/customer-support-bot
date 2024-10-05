@@ -1,5 +1,5 @@
 
-# Customer Support Bot Project Code of Conduct
+# Customer Support Bot: Code of Conduct
 
 Customer Support Bot is dedicated to providing a positive, respectful, and inclusive environment for all contributors and users. We have established this Code of Conduct to outline our expectations for behavior within our community. This code applies to all interactions within the project, including discussions, contributions, and events.
 
