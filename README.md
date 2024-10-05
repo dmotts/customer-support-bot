@@ -34,8 +34,8 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
 - [Contributions](#contributions)
 - [To-Do List](#to-do-list)
 - [Support](#support)
-- [Contributors](#contributors)
 - [License](#license)
+- [Contributors](#contributors)
 - [Let's Stay Connected](#lets-stay-connected)
 
 ## Features
@@ -107,13 +107,6 @@ If you encounter any issues or have questions, feel free to [open an issue](http
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contributors
-
-We'd like to thank all the contributors who have helped make this project better:
-
-- [Daley Mottley (dmotts)](https://github.com/dmotts)
-
 
 <h2 align="center">✨ Contributors ✨ </h2>
 
