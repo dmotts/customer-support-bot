@@ -32,8 +32,8 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
   - [Download from GitHub](#1-download-from-github)
   - [Clone the Repository](#2-clone-the-repository)
 - [Contributions](#contributions)
-- [To-Do List](#to-do-list)
-- [Support](#support)
+- [Help Wanted](#help-wanted)
+- [Report A Bug](#report-a-bug)
 - [License](#license)
 - [Contributors](#contributors)
 - [Let's Stay Connected](#lets-stay-connected)
@@ -87,7 +87,7 @@ We welcome and appreciate contributions to the **Customer Support Bot** project!
 
 Thank you for your support!
 
-## To-Do List
+## Help Wanted
 
 - [ ] **Ticket Categorization**: Automatically sort incoming support tickets into different categories.
 - [ ] **Basic Troubleshooting**: Provide users with automated solutions for common problems.
@@ -100,7 +100,7 @@ Thank you for your support!
 - [ ] **Satisfaction Surveys**: Gather feedback from users about their support experience.
 - [ ] **Multi-language Support**: Offer support in multiple languages.
 
-## Support
+## Report A Bug
 
 If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new/choose) or reach out to the maintainers.
 
