@@ -46,7 +46,7 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
 - [WordPress](https://wordpress.org/) – CMS platform where the plugin is installed and activated.
 - [PHP](https://www.php.net/) – Server-side language for API interactions and WordPress plugin development.
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Frontend logic for chatbot interaction.
-- [Axios](https://axios-http.com/docs/intro) – HTTP client for interacting with the Agentive API.
+- [Axios](https://axios-http.com/docs/intro) – HTTP client for interacting with the APIs.
 - [Bootstrap](https://getbootstrap.com/) – CSS framework for styling the admin settings page.
 - [OpenAI API](https://beta.openai.com/docs/) – Integrates AI capabilities for advanced NLP features.
 
