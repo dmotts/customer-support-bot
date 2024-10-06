@@ -86,7 +86,7 @@ Thank you for your support!
 
 ## Help Wanted
 
-- [ ] **Ticket Categorization**: Automatically sort incoming support tickets into different categories.
+- [✔️] **Ticket Categorization**: Automatically sort incoming support tickets into different categories.
 - [ ] **Basic Troubleshooting**: Provide users with automated solutions for common problems.
 - [ ] **Status Updates**: Notify users of ticket status and resolution progress.
 - [ ] **Password Resets**: Allow users to reset their passwords through the bot.
