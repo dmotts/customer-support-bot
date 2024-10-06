@@ -4,11 +4,11 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
 
 
 <p align="center">
-<a href="https://github.com/dmotts/customer-support-bot/issues/new/choose">Request Feature</a>
+<a href="https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFeature+Request%5D+">Request Feature</a>
      ·
     <a href="https://shorturl.at/AZvWp" target="blank">View Demo</a>
     ·
-    <a href="https://github.com/dmotts/customer-support-bot/issues/new/choose">Report Bug</a>
+    <a href="https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+">Report Bug</a>
  
 </p>
 
@@ -99,7 +99,7 @@ Thank you for your support!
 
 ## Report A Bug
 
-If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new/choose) or reach out to the maintainers.
+If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+) or reach out to the maintainers.
 
 ## License
 
