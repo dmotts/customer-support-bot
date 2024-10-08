@@ -78,12 +78,6 @@ Alternatively, you can clone the repository using Git:
 
 6. Find **Customer Support Bot** in the list and click **Activate**.
 
-## Contributions
-
-We welcome and appreciate contributions to the **Customer Support Bot** project! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
-
-Thank you for your support!
-
 ## Help Wanted
 
 - [ ] **Ticket Categorization**: Automatically sort incoming support tickets into different categories.
@@ -96,6 +90,12 @@ Thank you for your support!
 - [ ] **Escalation Management**: Automatically escalate unresolved issues to human support agents.
 - [ ] **Satisfaction Surveys**: Gather feedback from users about their support experience.
 - [ ] **Multi-language Support**: Offer support in multiple languages.
+
+## Contributions
+
+We welcome and appreciate contributions to the **Customer Support Bot** project! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
+
+Thank you for your support!
 
 ## Report A Bug
 
