@@ -23,7 +23,7 @@
 
 ## Table of Contents📋
 
-- [Features](#features)
+- [Features](#Features-📝)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
   - [Download from GitHub](#1-download-from-github)
