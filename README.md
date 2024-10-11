@@ -17,11 +17,11 @@
  
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
 
-## Overview
+## Project Overview 📑
 
 **Customer Support Bot** is a WordPress plugin that enables businesses to automate customer support using AI technology. The bot offers features like knowledge base searches, appointment scheduling, and more to enhance user experience and reduce the workload on customer support agents.
 
-## Table of Contents
+## Table of Contents📋
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
@@ -31,17 +31,16 @@
 - [Contributions](#contributions)
 - [Help Wanted](#help-wanted)
 - [Report A Bug](#report-a-bug)
-- [License](#license)
 - [Contributors](#contributors)
 - [Let's Stay Connected](#lets-stay-connected)
 
-## Features 
+## Features 📝
 
-- **Knowledge Base Searches**: Retrieve helpful articles from a predefined knowledge base.
-- **Appointment Scheduling**: Allow users to schedule appointments through the bot.
-- **Customization Settings**: Customize bot appearance and settings in the WordPress admin panel.
+📌 **Knowledge Base Searches**: Retrieve helpful articles from a predefined knowledge base.
+📌 **Appointment Scheduling**: Allow users to schedule appointments through the bot.
+📌 **Customization Settings**: Customize bot appearance and settings in the WordPress admin panel.
 
-## Technologies Used  
+## Technologies Used 🛰️
 
 - [WordPress](https://wordpress.org/) – CMS platform where the plugin is installed and activated.
 - [PHP](https://www.php.net/) – Server-side language for API interactions and WordPress plugin development.
