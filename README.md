@@ -111,7 +111,7 @@ To contribute:
 
 5) Open a pull request.
 
-***Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started! 🚀***
+<p align="center">***Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started! 🚀***</p>
 
 <p align="center">🫶 <em>Thank you for your support! </em>🙌 </p>
 
