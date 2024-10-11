@@ -35,13 +35,13 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
 - [Contributors](#contributors)
 - [Let's Stay Connected](#lets-stay-connected)
 
-## Features
+## Features 
 
 - **Knowledge Base Searches**: Retrieve helpful articles from a predefined knowledge base.
 - **Appointment Scheduling**: Allow users to schedule appointments through the bot.
 - **Customization Settings**: Customize bot appearance and settings in the WordPress admin panel.
 
-## Technologies Used
+## Technologies Used  
 
 - [WordPress](https://wordpress.org/) – CMS platform where the plugin is installed and activated.
 - [PHP](https://www.php.net/) – Server-side language for API interactions and WordPress plugin development.
@@ -50,7 +50,7 @@ Customer Support Bot <br> <span>( WordPress Plugin )</span>
 - [Bootstrap](https://getbootstrap.com/) – CSS framework for styling the admin settings page.
 - [OpenAI API](https://beta.openai.com/docs/) – Integrates AI capabilities for advanced NLP features.
 
-## Installation
+## Installation ⚙️
 
 You can install the **Customer Support Bot** plugin in two ways:
 
@@ -78,7 +78,7 @@ Alternatively, you can clone the repository using Git:
 
 6. Find **Customer Support Bot** in the list and click **Activate**.
 
-## Help Wanted
+## Help Wanted 🪧
 
 - [ ] **Ticket Categorization**: Automatically sort incoming support tickets into different categories.
 - [ ] **Basic Troubleshooting**: Provide users with automated solutions for common problems.
@@ -91,15 +91,15 @@ Alternatively, you can clone the repository using Git:
 - [ ] **Satisfaction Surveys**: Gather feedback from users about their support experience.
 - [ ] **Multi-language Support**: Offer support in multiple languages.
 
-## Report A Bug
+## Report A Bug 👻
 
 If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+) or reach out to the maintainers.
 
-## License
+## License 📃
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contributions
+## Contributions ⛽
 
 We welcome and appreciate contributions to the **Customer Support Bot** project! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
 
