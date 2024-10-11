@@ -35,11 +35,12 @@
 - [Let's Stay Connected](#lets-stay-connected)
 
 ## Features 📝
-<ul style="list-style-type:none;padding-left: 0;">
+<ul style="list-style-type:none;padding-left:0;">
 <li>📌 Knowledge Base Searches: Retrieve helpful articles from a predefined knowledge base. </li>
 <li>📌 Appointment Scheduling: Allow users to schedule appointments through the bot. </li>
 <li>📌 Customization Settings: Customize bot appearance and settings in the WordPress admin panel.</li>
 </ul>
+
 ## Technologies Used 📚
 
 - [WordPress](https://wordpress.org/) – CMS platform where the plugin is installed and activated.
