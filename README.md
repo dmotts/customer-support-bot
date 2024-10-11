@@ -112,7 +112,7 @@ To contribute:
 
 5) Open a pull request.
 
-<p align="center" style="font-weight:700;font-style:italics;">Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started! 🚀</p>
+<p align="center" style="font-weight:700;font-style:italics;">Please read our <a href="https://github.com/dmotts/customer-support-bot/CONTRIBUTING.md" >Contributing Guidelines</a>to get started! 🚀</p>
 
 <p align="center">🫶 <em>Thank you for your support! </em>🙌 </p>
 
