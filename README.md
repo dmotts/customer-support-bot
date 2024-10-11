@@ -95,9 +95,6 @@ Alternatively, you can clone the repository using Git:
 
 If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+) or reach out to the maintainers.
 
-## License 📃
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributions 🧑‍🔧👷‍♀️🏗️🏢
 
@@ -130,7 +127,7 @@ To contribute:
 -->
 <hr>
 
-<h2 align="center"> 🌎 Let's Stay Connected 🤜🤛 </h2>
+<h2 align="center"> 🌎 Let's Stay Connected! 🫸🫷 </h2>
 
 <p align="center"> If you like this project and would like to see more features or show your support.</p>
 <p align="center"> Feel free to reach out to the developer(s) and give this project a ⭐!</p>
