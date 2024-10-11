@@ -28,10 +28,9 @@
 - [Installation](#installation)
   - [Download from GitHub](#1-download-from-github)
   - [Clone the Repository](#2-clone-the-repository)
-- [Contributions](#contributions)
 - [Help Wanted](#help-wanted)
 - [Report A Bug](#report-a-bug)
-- [Contributors](#contributors)
+- [Contributions](#contributions)
 - [Let's Stay Connected](#lets-stay-connected)
 
 ## Features 📝
