@@ -91,12 +91,6 @@ Alternatively, you can clone the repository using Git:
 - [ ] **Satisfaction Surveys**: Gather feedback from users about their support experience.
 - [ ] **Multi-language Support**: Offer support in multiple languages.
 
-## Contributions
-
-We welcome and appreciate contributions to the **Customer Support Bot** project! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
-
-Thank you for your support!
-
 ## Report A Bug
 
 If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+) or reach out to the maintainers.
@@ -105,6 +99,11 @@ If you encounter any issues or have questions, feel free to [open an issue](http
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Contributions
+
+We welcome and appreciate contributions to the **Customer Support Bot** project! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
+
+<p align="center"><em>Thank you for your support!</em></p>
 <!--
 <h2 align="center">✨ Contributors ✨ </h2>
 
