@@ -37,10 +37,12 @@
 ## Features 📝
 
 📌 **Knowledge Base Searches**: Retrieve helpful articles from a predefined knowledge base.
+
 📌 **Appointment Scheduling**: Allow users to schedule appointments through the bot.
+
 📌 **Customization Settings**: Customize bot appearance and settings in the WordPress admin panel.
 
-## Technologies Used 🛰️
+## Technologies Used 📚
 
 - [WordPress](https://wordpress.org/) – CMS platform where the plugin is installed and activated.
 - [PHP](https://www.php.net/) – Server-side language for API interactions and WordPress plugin development.
