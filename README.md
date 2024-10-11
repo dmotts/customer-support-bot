@@ -91,7 +91,7 @@ Alternatively, you can clone the repository using Git:
 - [ ] **Satisfaction Surveys**: Gather feedback from users about their support experience.
 - [ ] **Multi-language Support**: Offer support in multiple languages.
 
-## Report A Bug 👻
+## Report A Bug 🪰
 
 If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+) or reach out to the maintainers.
 
@@ -99,11 +99,26 @@ If you encounter any issues or have questions, feel free to [open an issue](http
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contributions ⛽
+## Contributions 🧑‍🔧👷‍♀️🏗️🏢
 
-We welcome and appreciate contributions to the **Customer Support Bot** project! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
+Contributions are welcome! It only takes five (5) steps!
 
-<p align="center"><em>Thank you for your support!</em></p>
+To contribute:
+
+1) Fork the repository.
+
+2) Create a new branch: `git checkout -b my-feature-branch`.
+
+3) Make your changes and commit them: `git commit -m 'Add some feature'`.
+
+4) Push to the branch: `git push origin my-feature-branch`.
+
+5) Open a pull request.
+
+***Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started! 🚀***
+
+<p align="center">🫶 <em>Thank you for your support! </em>🙌 </p>
+
 <!--
 <h2 align="center">✨ Contributors ✨ </h2>
 
