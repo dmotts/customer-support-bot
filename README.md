@@ -113,8 +113,6 @@ To contribute:
 
 <p align="center" ><strong><em>Please read our <a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md" >Contributing Guidelines</a> to get started!</em></strong> 🚀</p>
 
-<p align="center">🫶 <em>Thank you for your support! </em>🙌 </p>
-
 ## Contributors
 
 <p align="center">
@@ -126,6 +124,8 @@ To contribute:
   </a>
   
 </p>
+
+<p align="center">🫶 <em>Thank you for your support! </em>🙌 </p>
 
 <hr>
 
