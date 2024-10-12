@@ -23,14 +23,14 @@
 
 ## Table of Contents📋
 
-- [Features](#Features-📝)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
+- [Features](#features-)
+- [Technologies Used](#technologies-used-)
+- [Installation](#installation-️)
   - [Download from GitHub](#1-download-from-github)
   - [Clone the Repository](#2-clone-the-repository)
-- [Help Wanted](#help-wanted)
-- [Report A Bug](#report-a-bug)
-- [Contributions](#contributions)
+- [Help Wanted](#help-wanted-)
+- [Report A Bug](#report-a-bug-)
+- [Contributions](#contributions-️️)
 - [Let's Stay Connected](#lets-stay-connected)
 
 ## Features 📝
@@ -126,6 +126,7 @@ To contribute:
 -->
 <hr>
 
+<a name="lets-stay-connected"></a>
 <h2 align="center"> 🌎 Let's Stay Connected!🫸🫷 </h2>
 
 <p align="center"> If you like this project and would like to see more features or show your support.</p>
