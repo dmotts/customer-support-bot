@@ -30,8 +30,8 @@
   - [Clone the Repository](#2-clone-the-repository)
 - [Help Wanted](#help-wanted-)
 - [Report A Bug](#report-a-bug-)
-- [Contributions](#contributions-)
-- [Contributors](#contributors-️️)
+- [Contributions](#contributions)
+- [Contributors](#contributors)
 - [Let's Stay Connected](#lets-stay-connected)
 
 ## Features 📝
@@ -95,7 +95,7 @@ Alternatively, you can clone the repository using Git:
 
 If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+) or reach out to the maintainers.
 
-
+<a name="contributions"></a>
 ## Contributions 🧑‍🔧👷‍♀️🏗️🏢
 
 Contributions are welcome! It only takes five (5) steps!
@@ -114,6 +114,7 @@ To contribute:
 
 <p align="center" ><strong><em>Please read our <a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md" >Contributing Guidelines</a> to get started!</em></strong> 🚀</p>
 
+<a name="contributors"></a>
 ## Contributors
 
 <p align="center">
