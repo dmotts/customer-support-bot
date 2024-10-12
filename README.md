@@ -115,15 +115,18 @@ To contribute:
 
 <p align="center">🫶 <em>Thank you for your support! </em>🙌 </p>
 
-<!--
-<h2 align="center">✨ Contributors ✨ </h2>
+## Contributors
 
-<div align="center">
-[Daley Mottley (dmotts)](https://github.com/dmotts)
-</div>
+<p align="center">
+  <a href="https://github.com/dmotts">
+    <img src="https://github.com/dmotts.png" width="100" height="100" style="border-radius: 50%;" alt="dmotts"/>
+  </a>
+  <a href="https://github.com/mostafahanafi">
+    <img src="https://github.com/mostafahanafi.png" width="100" height="100" style="border-radius: 50%;" alt="mostafahanafi"/>
+  </a>
+  
+</p>
 
-<h2 align="center"> 🌟 Supporters 🌟 </h2>
--->
 <hr>
 
 <a name="lets-stay-connected"></a>
