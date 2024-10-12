@@ -30,7 +30,8 @@
   - [Clone the Repository](#2-clone-the-repository)
 - [Help Wanted](#help-wanted-)
 - [Report A Bug](#report-a-bug-)
-- [Contributions](#contributions-️️)
+- [Contributions](#contributions-)
+- [Contributors](#contributors-️️)
 - [Let's Stay Connected](#lets-stay-connected)
 
 ## Features 📝
