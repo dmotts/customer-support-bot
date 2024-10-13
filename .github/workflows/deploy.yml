@@ -3,7 +3,7 @@ name: Deploy Demo
 on:
   push:
     branches:
-       - chatgpt-response 
+       - main
 
 jobs:
   deploy:
