@@ -15,6 +15,8 @@ function vacw_add_custom_color_to_chatbot() {
         .chat-message-sent { background-color: {$theme_color}; }
         .chat-message-received { background-color: {$theme_color}; }
         .main-title { background-color: {$theme_color}; }
+        button.input-send svg { fill: {$theme_color}; }
+        .line { background-color: {$theme_color}; }
     </style>";
 }
 add_action('wp_footer', 'vacw_add_custom_color_to_chatbot');
