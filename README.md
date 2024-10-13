@@ -13,6 +13,7 @@
 
 <p align="center"><a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md">Contributing Guidelines & Code of Conduct</a></p>
 
+<div align="center">
 <p>
 
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
@@ -35,7 +36,6 @@
  
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
 
-<div align="center">
 
 ## Project Overview 📑
 
