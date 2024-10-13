@@ -104,6 +104,7 @@
   font-size: 14px;
   margin: 8px;
   align-items: flex-start; /* Align avatar and messages properly */
+  word-break: break-all;
 }
 
 /* Avatar Styles */
@@ -114,7 +115,7 @@
 }
 
 .avatar-img {
-  width: 34px;
+  width: 38px;
   height: 38px;
   border-radius: 50%;
   object-fit: cover;
@@ -155,7 +156,8 @@ input#message {
   height: 48px;
   display: flex;
   align-items: center;
-}
+}
+
 
 .input-message:focus {
   outline: none;
