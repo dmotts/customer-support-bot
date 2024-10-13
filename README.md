@@ -2,17 +2,6 @@
 ☀️ Customer Support Bot ☀️ <br> <span>( WordPress Plugin )</span> <br> 🦥
 </h1>
 
-
-<p align="center">
-<a href="https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFeature+Request%5D+">Request Feature</a>
-     ·
-    <a href="https://shorturl.at/AZvWp" target="blank">View Demo</a>
-    ·
-    <a href="https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+">Report Bug</a>
- 
-</p>
-
-<p align="center"><a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md">Contributing Guidelines & Code of Conduct</a></p>
 <div align="center">
 <p>
 
@@ -31,6 +20,18 @@
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/dmotts/customer-support-bot)
 </p>
 </div>
+
+<p align="center">
+<a href="https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFeature+Request%5D+">Request Feature</a>
+     ·
+    <a href="https://shorturl.at/AZvWp" target="blank">View Demo</a>
+    ·
+    <a href="https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+">Report Bug</a>
+ 
+</p>
+
+<p align="center"><a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md">Contributing Guidelines & Code of Conduct</a></p>
+
  <hr>
  
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
