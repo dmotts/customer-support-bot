@@ -115,7 +115,7 @@ To contribute:
 <p align="center" ><strong><em>Please read our <a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md" >Contributing Guidelines</a> to get started!</em></strong> 🚀</p>
 
 <a name="contributors"></a>
-## Contributors
+<h2 align="center">Contributors</h2>
 
 <p align="center">
   <a href="https://github.com/dmotts">
