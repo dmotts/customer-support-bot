@@ -13,6 +13,24 @@
 </p>
 
 <p align="center"><a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md">Contributing Guidelines & Code of Conduct</a></p>
+<div align="center">
+<p>
+
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)
+![GitHub forks](https://img.shields.io/github/forks/dmotts/customer-support-bot)
+![GitHub Repo stars](https://img.shields.io/github/stars/dmotts/customer-support-bot)
+![GitHub contributors](https://img.shields.io/github/contributors/dmotts/customer-support-bot)
+![GitHub last commit](https://img.shields.io/github/last-commit/dmotts/customer-support-bot)
+![GitHub repo size](https://img.shields.io/github/repo-size/dmotts/customer-support-bot)
+![GitHub total lines](https://sloc.xyz/github/dmotts/customer-support-bot)
+![Github](https://img.shields.io/github/license/dmotts/customer-support-bot)
+![GitHub issues](https://img.shields.io/github/issues/dmotts/customer-support-bot)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/dmotts/customer-support-bot)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/dmotts/customer-support-bot)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/dmotts/customer-support-bot)
+</p>
+</div>
  <hr>
  
 ![Customer Support Bot Screenshot](https://res.cloudinary.com/dzpafdvkm/image/upload/v1726858049/Portfolio/customer-support-bot-screenshot.png)
