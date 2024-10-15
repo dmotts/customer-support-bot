@@ -1,5 +1,8 @@
 <h1 align="center">
-☀️ Customer Support Bot ☀️ <br> <span>( WordPress Plugin )</span> <br> 🦥
+☀️ Customer Support Bot ☀️ <br> 
+     <span align="center">
+<img src="https://github.com/dmotts/customer-support-bot/blob/main/assets/images/logo.png" alt="logo" height="50" width="50" />
+     </span> </br> <span style="font-size:11px;">( WordPress Plugin )</span> <br> 
 </h1>
 
 <p align="center">
