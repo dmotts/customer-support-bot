@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
   <!-- Chatbot header -->
   <div class="main-title">
     <div>
-      <img src="https://github.com/dmotts/customer-support-bot/blob/main/assets/images/logo.png" alt="" />
+      <img src="/assets/images/logo.png" alt="" />
     </div>
     <!-- Display the assistant's name from the settings -->
     <span><?php echo esc_html(get_option('vacw_assistant_name', 'Customer Support Assistant')); ?></span>
