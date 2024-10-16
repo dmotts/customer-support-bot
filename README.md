@@ -1,9 +1,11 @@
 <h1 align="center">
 
-☀️ Customer Support Bot ☀️ <br>
-       <span align="center">
-<img src="https://github.com/dmotts/customer-support-bot/blob/main/assets/images/logo-white.png" alt="logo" height="150" width="150" />
-     </span> 
+
+<span align="center">
+       <img src="https://github.com/dmotts/customer-support-bot/blob/main/assets/images/logo-white.png" alt="logo" height="150" width="150" />
+</span>
+<br> 
+☀️ Customer Support Bot ☀️ 
 
    
 </h1>
