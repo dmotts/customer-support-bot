@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
   <!-- Chatbot header -->
   <div class="main-title">
     <div>
-      <img src="/assets/images/logo.png" alt="" />
+        <img src="<?php echo esc_url(plugin_dir_url(__FILE__) . '/images/logo-white.png'); ?>" alt="Logo" />
     </div>
     <!-- Display the assistant's name from the settings -->
     <span><?php echo esc_html(get_option('vacw_assistant_name', 'Customer Support Assistant')); ?></span>

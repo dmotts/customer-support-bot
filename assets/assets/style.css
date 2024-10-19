@@ -56,10 +56,7 @@
   padding: 14px;
   color: white;
   transition: background 0.3s;
-}
-
-#chatbot_toggle:hover {
-  background: rgba(219, 226, 0, .05);
+  cursor: pointer;
 }
 
 /* Header Styles */
@@ -85,7 +82,7 @@
   margin-left: 8px;
 }
 
-.main-title svg {
+.main-title img {
   height: 24px;
 }
 
