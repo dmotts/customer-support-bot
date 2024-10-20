@@ -80,6 +80,18 @@ if (!defined('ABSPATH')) {
             </p>
         </div>
 
+        <!-- Add a color picker option for text -->
+        <div class="mb-3">
+            <label for="vacw_text_color" class="form-label">
+                <?php _e('Text Color', 'customer-support-bot'); ?>
+            </label>
+            <input type="text" name="vacw_text_color" id="vacw_text_color" class="vacw-color-field"
+                   value="<?php echo esc_attr(get_option('vacw_text_color', '#000000')); ?>" />
+            <p class="form-text text-muted">
+                <?php _e('Choose the text color for the chat widget.', 'customer-support-bot'); ?>
+            </p>
+        </div>
+
         <!-- Save Button -->
         <?php submit_button(__('Save Changes', 'customer-support-bot'), 'btn btn-primary'); ?>
     </form>

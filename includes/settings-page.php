@@ -67,5 +67,16 @@ function vacw_register_settings() {
             'sanitize_callback' => 'sanitize_hex_color' // Sanitize hex color value
         )
     );
+
+    // Text Color field (with sanitization for hex color values)
+    register_setting(
+        'vacw_settings_group',
+        'vacw_text_color',
+        array(
+            'type' => 'string',
+            'default' => '#000000', // Default text color
+            'sanitize_callback' => 'sanitize_hex_color' // Sanitize hex color value
+        )
+    );
 }
 add_action('admin_init', 'vacw_register_settings');
