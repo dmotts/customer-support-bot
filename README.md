@@ -173,6 +173,6 @@ To contribute:
 <h2 align="center"> 🌎 Let's Stay Connected!🫸🫷 </h2>
 
 <p align="center"> If you like this project and would like to see more features or show your support.</p>
-<p align="center"> Feel free to reach out to the developer(s) and give this project a ⭐!</p>
+<p align="center"> Feel free to reach out to the developers and give this project a ⭐!</p>
 
 
